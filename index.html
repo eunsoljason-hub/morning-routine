@@ -434,6 +434,13 @@ button,.mode-tab,.card,.topbar{-webkit-touch-callout:none}
 .ps-cell .ps-art svg{width:100%;height:100%}
 .ps-badge{position:absolute;left:5px;top:5px;font-size:clamp(9px,1vw,12px);background:rgba(255,255,255,.92);border-radius:999px;padding:1px 5px;line-height:1.4}
 .ps-date{position:absolute;right:4px;bottom:4px;font-size:9px;font-weight:850;color:#fff;background:rgba(58,52,84,.68);padding:2px 5px;border-radius:999px}
+.ps-main{position:absolute;inset:0;display:grid;place-items:center;width:100%;height:100%;padding:0;border:0;background:transparent;color:inherit;font:inherit;cursor:pointer}
+.ps-main:focus-visible{outline:3px solid var(--coral);outline-offset:-4px;border-radius:14px}
+.ps-del{position:absolute;right:3px;top:3px;z-index:2;width:clamp(17px,2.1vw,23px);height:clamp(17px,2.1vw,23px);padding:0;border:0;border-radius:999px;
+  background:rgba(58,52,84,.74);color:#fff;font-size:clamp(8px,1vw,11px);font-weight:900;line-height:1;display:grid;place-items:center;
+  cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.22);transition:transform .12s,background .15s}
+.ps-del:hover,.ps-del:focus-visible{background:var(--coral);transform:scale(1.1);outline:none}
+.ps-del:active{transform:scale(.92)}
 .photo-view{position:fixed;inset:0;z-index:96;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(24,20,40,.82);
   opacity:0;pointer-events:none;transition:opacity .25s}
 .photo-view.open{opacity:1;pointer-events:auto}
@@ -716,7 +723,7 @@ button,.mode-tab,.card,.topbar{-webkit-touch-callout:none}
       </div>
       <div class="photo-board" id="photoBoard"></div>
       <div class="reward-box" id="rewardBox"></div>
-      <p class="note-line">☀️ 아침 등원과 🌙 하원 후 일과의 스티커판·보상은 <b>서로 따로</b> 쌓여요. 10칸을 다 채우면 🎆 축하 후 <b>새 판이 저절로 시작</b>되고, 받은 선물은 🎁 선물함에 남겨둘 수 있어요.</p>
+      <p class="note-line">☀️ 아침 등원과 🌙 하원 후 일과의 스티커판·보상은 <b>서로 따로</b> 쌓여요. 10칸을 다 채우면 🎆 축하 후 <b>새 판이 저절로 시작</b>되고, 받은 선물은 🎁 선물함에 남겨둘 수 있어요.<br>칸 오른쪽 위 <b>✕</b>를 누르면 <b>그 스티커만</b> 지울 수 있어요 — 7초 안에 <b>↩ 되돌리기</b>로 되살릴 수 있어요.</p>
     </div>
 
     <!-- 2) 선물함 -->
@@ -1302,6 +1309,13 @@ function loadState(){
     }
     st.stickers = Array.isArray(s.stickers) ? s.stickers.slice() : [];
     st.gifts = Array.isArray(s.gifts) ? s.gifts.slice() : [];
+    // 예전에 id 없이 저장된 스티커(빠른 출발 보너스 등)도 개별 삭제할 수 있게 고유 id를 붙임
+    const seenIds = new Set(st.stickers.map(x=>(x && x.id) || ""));
+    st.stickers.forEach(x=>{
+      if(!x || x.id) return;
+      let nid; do{ nid = "ph"+Date.now().toString(36)+Math.random().toString(36).slice(2,6); }while(seenIds.has(nid));
+      seenIds.add(nid); x.id = nid;
+    });
     st.history = (s.history && typeof s.history==="object") ? s.history : {};
     // v1의 평평한 기록({done,total,...})은 아침 기록으로 옮김
     Object.keys(st.history).forEach(k=>{
@@ -1977,12 +1991,12 @@ function finishRoutine(){
   const m = state.mode, goal = modeGoal(m);
   const beforeCount = modeStickers(m).length;
   const type = pickStickerType();
-  const sid = "ph"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+  const sid = newStickerId();
   state.stickers.push({id:sid, date:state.day.date, mode:m, type, bonus:false, ts:Date.now()});
   let bonus = false;
   if(Date.now() <= departDate().getTime()){
     bonus = true;
-    state.stickers.push({date:state.day.date, mode:m, type:"speed", bonus:true, ts:Date.now()});
+    state.stickers.push({id:newStickerId(), date:state.day.date, mode:m, type:"speed", bonus:true, ts:Date.now()});
   }
   const afterCount = modeStickers(m).length;
   const crossed = Math.floor(afterCount/goal) > Math.floor(beforeCount/goal);
@@ -3213,13 +3227,74 @@ async function renderPhotoBoard(){
     } else {
       media = `<span class="ps-art">${stickerArtFor(s)}</span>`;
     }
-    out.push(`<button class="ps-cell" type="button" data-psid="${s.id||""}" aria-label="${escapeAttr(shortDate(s.date)+" "+(s.mode==="evening"?"하원 후":"아침")+" 포토 스티커")}">
-      <span class="ps-badge">${s.mode==="evening"?"🌙":"☀️"}</span>${media}
-      <span class="ps-date">${escapeHtml(shortDate(s.date))}</span>
-    </button>`);
+    const sid = s.id || "";
+    out.push(`<div class="ps-cell filled">
+      <button class="ps-main" type="button" data-psid="${escapeAttr(sid)}" aria-label="${escapeAttr(shortDate(s.date)+" "+(s.mode==="evening"?"하원 후":"아침")+" 포토 스티커")}">
+        <span class="ps-badge">${s.mode==="evening"?"🌙":"☀️"}</span>${media}
+        <span class="ps-date">${escapeHtml(shortDate(s.date))}</span>
+      </button>
+      <button class="ps-del" type="button" data-psdel="${escapeAttr(sid)}" title="이 스티커만 지우기" aria-label="${escapeAttr(shortDate(s.date)+" 스티커만 지우기")}">✕</button>
+    </div>`);
   }
   box.innerHTML = out.join("");
   $$("[data-psid]", box).forEach(b=>b.addEventListener("click", ()=>openPhotoView(b.dataset.psid)));
+  $$("[data-psdel]", box).forEach(b=>b.addEventListener("click", e=>{
+    e.stopPropagation(); e.preventDefault();
+    deleteSticker(b.dataset.psdel);
+  }));
+}
+/* ---------------- 스티커 하나만 지우기 (7초 안에 되돌리기) ---------------- */
+function newStickerId(){
+  let id, n=0;
+  do{ id = "ph"+Date.now().toString(36)+Math.random().toString(36).slice(2,6); n++; }
+  while((state.stickers||[]).some(x=>x && x.id===id) && n<20);
+  return id;
+}
+let stickerUndo = null;
+function finalizeStickerDelete(){
+  const u = stickerUndo; stickerUndo = null;
+  if(!u) return;
+  clearTimeout(u.timer);
+  if(u.photoId){ try{ PhotoDB.del(u.photoId); }catch(e){} }
+}
+async function deleteSticker(id){
+  if(!id) return;
+  const arr = state.stickers || (state.stickers=[]);
+  const idx = arr.findIndex(x=>x && x.id===id);
+  if(idx < 0){ showToast("이미 지운 스티커예요"); return; }
+  finalizeStickerDelete();              // 앞서 지운 스티커의 셀카 정리를 먼저 마무리
+  const s = arr[idx];
+  const m = stickerMode(s), rw = modeReward(m), goal = modeGoal(m);
+  // 이 스티커보다 앞에 같은 루틴으로 이미 보상 처리된 구간이면, 그 소진 수(used)도 하나 줄여야 판이 어긋나지 않아요
+  let before = 0;
+  for(let i=0;i<idx;i++){ const x=arr[i]; if(x && stickerMode(x)===m) before++; }
+  const prevUsed = Math.max(0, rw.used||0);
+  const usedFixed = before < prevUsed;
+  let rec = null;
+  if(s.id){ try{ rec = await PhotoDB.get(s.id); }catch(e){} }
+  arr.splice(idx,1);
+  if(usedFixed) rw.used = Math.max(0, prevUsed-1);
+  save(); renderHeader(); renderStickerBoard(); Sfx.tap();
+  const left = Math.min(modeUsable(m), goal);
+  const u = { sticker:s, index:idx, usedFixed, photoId:(rec && rec.id)||null, timer:null, done:false };
+  u.timer = setTimeout(()=>{ if(stickerUndo===u) finalizeStickerDelete(); }, 7000);
+  stickerUndo = u;
+  showToast("스티커 하나를 지웠어요 · "+(MODES[m]?MODES[m].label:m)+" "+left+"/"+goal, {
+    actionLabel:"↩ 되돌리기",
+    onAction: ()=>restoreSticker(u),
+    durationMs: 7000
+  });
+}
+function restoreSticker(u){
+  if(!u || u.done) return;
+  u.done = true;
+  clearTimeout(u.timer);
+  if(stickerUndo===u) stickerUndo = null;
+  const arr = state.stickers || (state.stickers=[]);
+  arr.splice(clamp(u.index, 0, arr.length), 0, u.sticker);
+  if(u.usedFixed){ const rw = modeReward(stickerMode(u.sticker)); rw.used = (rw.used||0)+1; }
+  save(); renderHeader(); renderStickerBoard(); Sfx.sparkle();
+  showToast("스티커를 되살렸어요 ✨");
 }
 async function openPhotoView(id){
   const s=(state.stickers||[]).find(x=>x.id===id);
@@ -3464,6 +3539,14 @@ renderAll();
 tick();
 setInterval(tick, 500);
 loadClips().then(()=>{ paintSoundCards(); if($("#parentModal").classList.contains("open")) renderParent(); });
+// 지워진 스티커에 남은 셀카(IndexedDB) 정리 — 선물 사진은 건드리지 않아요
+(async ()=>{
+  try{
+    const ids = new Set((state.stickers||[]).map(s=>(s && s.id)||"").filter(Boolean));
+    const recs = await PhotoDB.all();
+    for(const r of recs){ if(r && r.id && r.kind!=="gift" && !ids.has(r.id)) await PhotoDB.del(r.id); }
+  }catch(e){}
+})();
 firstRunTip();
 requestWakeLock();
 
@@ -3489,7 +3572,9 @@ window.__morning = {
   testSound,
   openMega,
   openSelfie,
-  openParent, openStickers, openReport
+  openParent, openStickers, openReport,
+  deleteSticker, restoreSticker,
+  get pendingUndo(){ return stickerUndo; }
 };
 })();
 </script>
