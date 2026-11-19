@@ -59,8 +59,8 @@ h1,h2,h3,p{margin:0}
 
 .clockbox{display:flex;flex-direction:column;align-items:center;gap:clamp(2px,.6vh,6px)}
 .time-row{display:flex;align-items:baseline;gap:5px;line-height:1}
-.hm{font-size:clamp(30px,3.9vw,52px);font-weight:850;letter-spacing:-.045em}
-.ss{font-size:clamp(12px,1.25vw,18px);font-weight:800;color:var(--ink-faint);letter-spacing:0}
+.hm{font-size:clamp(42px,5.6vw,78px);font-weight:900;letter-spacing:-.05em;line-height:.95;color:var(--ink);text-shadow:0 2px 0 rgba(255,255,255,.7)}
+.ss{font-size:clamp(16px,1.9vw,28px);font-weight:900;color:var(--ink-soft);letter-spacing:0}
 .depart-pill{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;
   background:#fff;box-shadow:0 2px 8px rgba(58,52,84,.08);font-size:clamp(10px,1vw,13px);font-weight:800;color:var(--ink-soft);white-space:nowrap}
 .depart-pill svg{width:13px;height:13px;flex:none}
@@ -91,6 +91,23 @@ h1,h2,h3,p{margin:0}
 .icon-btn.pressing{animation:pressRing .9s linear forwards}
 @keyframes pressRing{0%{box-shadow:0 0 0 0 rgba(255,138,122,.55)}100%{box-shadow:0 0 0 14px rgba(255,138,122,0)}}
 .icon-btn.on{background:#FFF0C9}
+
+/* ---------- routine tabs ---------- */
+.mode-tabs{flex:none;display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,1.1vw,14px);
+  padding:0 clamp(12px,2.2vw,30px) clamp(6px,1vh,12px)}
+.mode-tab{position:relative;display:flex;align-items:center;justify-content:center;gap:clamp(6px,1vw,12px);
+  padding:clamp(7px,1.1vh,13px) clamp(8px,1.2vw,16px);border-radius:clamp(14px,1.7vw,22px);min-width:0;
+  background:rgba(255,255,255,.86);border:3px solid rgba(255,255,255,.9);
+  box-shadow:0 6px 16px rgba(58,52,84,.08);transition:transform .15s,box-shadow .2s,background .2s,border-color .2s}.mode-tab:hover{transform:translateY(-1px)}
+.mode-tab:active{transform:scale(.97)}
+.mode-tab .mt-emoji{font-size:clamp(19px,2.3vw,30px);line-height:1;flex:none}
+.mode-tab .mt-txt{display:flex;flex-direction:column;align-items:flex-start;min-width:0;line-height:1.12}
+.mode-tab .mt-label{font-size:clamp(13px,1.5vw,20px);font-weight:900;letter-spacing:-.03em;white-space:nowrap}
+.mode-tab .mt-sub{font-size:clamp(9px,.9vw,11.5px);font-weight:800;color:var(--ink-faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.mode-tab.sel{border-color:var(--coral);background:linear-gradient(135deg,#FFF6E3,#FFE6DC);box-shadow:0 10px 24px rgba(255,138,122,.22)}
+.mode-tab.sel .mt-sub{color:var(--coral-d)}
+.mode-tab[data-mode="evening"].sel{border-color:#8E86E0;background:linear-gradient(135deg,#EEEAFF,#DDEBFF);box-shadow:0 10px 24px rgba(142,134,224,.24)}
+.mode-tab[data-mode="evening"].sel .mt-sub{color:#6A5FC4}
 
 /* ---------- grid ---------- */
 .grid{
@@ -147,6 +164,30 @@ h1,h2,h3,p{margin:0}
 .card.done .check{display:grid;animation:pop .45s cubic-bezier(.2,1.7,.5,1);box-shadow:0 0 0 3px #fff,0 4px 12px rgba(111,211,184,.55)}
 .card.done .ko{color:var(--ink)}
 .card.done .chip{display:none}
+
+/* 영상 단계: 카드 안 큰 타이머 */
+.card .vtimer{position:absolute;left:9%;right:9%;top:24%;z-index:4;display:none;text-align:center;
+  background:rgba(255,255,255,.95);border-radius:16px;padding:7px 9px;box-shadow:0 8px 20px rgba(58,52,84,.2);border:2px solid rgba(255,138,122,.35)}
+.card.timing .vtimer{display:block}
+.card.done .vtimer{display:none}
+.card.timing{box-shadow:0 0 0 3px rgba(255,138,122,.4),0 16px 34px rgba(58,52,84,.14)}
+.vt-lbl{font-size:clamp(9px,.9vw,11.5px);font-weight:850;color:var(--ink-soft);letter-spacing:-.01em}
+.vt-time{font-size:clamp(20px,2.7vw,34px);font-weight:900;letter-spacing:-.04em;line-height:1.05;color:var(--ink)}
+.vt-bar{height:6px;border-radius:99px;background:#EFEAF7;overflow:hidden;margin:5px 0 6px}
+.vt-bar i{display:block;height:100%;width:0;background:var(--coral);border-radius:99px;transition:width .3s linear}
+.vt-done{background:var(--mint);color:#fff;font-weight:900;font-size:clamp(10px,1.05vw,13.5px);
+  padding:5px 11px;border-radius:999px;box-shadow:0 3px 10px rgba(111,211,184,.45)}
+.vt-done:active{transform:scale(.95)}
+
+/* 완료 카드 되돌리기 버튼 */
+.undo-btn{display:none;margin-left:auto;align-items:center;gap:3px;height:clamp(22px,2.1vw,28px);padding:0 clamp(6px,.7vw,10px);
+  border-radius:999px;background:#fff;border:2px solid rgba(58,52,84,.14);color:var(--ink-soft);
+  font-size:clamp(9px,.85vw,11.5px);font-weight:850;letter-spacing:-.02em;white-space:nowrap;
+  box-shadow:0 2px 6px rgba(58,52,84,.08);transition:background .2s,color .2s,transform .12s;z-index:3}
+.undo-btn:active{transform:scale(.94)}
+.card.done .undo-btn{display:inline-flex}
+.undo-btn.confirm{background:var(--coral);border-color:transparent;color:#fff;animation:undoPulse 1s ease-in-out infinite}
+@keyframes undoPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,138,122,.5)}50%{box-shadow:0 0 0 6px rgba(255,138,122,0)}}
 @keyframes pop{0%{transform:scale(0) rotate(-30deg)}100%{transform:scale(1) rotate(0)}}
 .card.shake{animation:shake .55s ease}
 @keyframes shake{0%,100%{transform:translateX(0)}15%{transform:translateX(-8px) rotate(-1.2deg)}30%{transform:translateX(8px) rotate(1.2deg)}
@@ -310,10 +351,81 @@ h1,h2,h3,p{margin:0}
 .bonus-chip{display:inline-flex;align-items:center;gap:6px;margin-top:10px;background:#FFF0C9;color:#8A5A00;padding:6px 12px;border-radius:999px;font-weight:850;font-size:clamp(10px,1vw,13px);box-shadow:0 4px 12px rgba(255,201,77,.35)}
 .cel-actions{display:flex;gap:8px;justify-content:center;margin-top:clamp(12px,2vh,22px);flex-wrap:wrap}
 
+/* 10개 달성 대왕 축하 */
+.mega{position:fixed;inset:0;z-index:95;display:flex;align-items:center;justify-content:center;padding:16px;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+  background:radial-gradient(circle at 50% 45%,rgba(58,52,84,.5),rgba(20,16,40,.84))}
+.mega.open{opacity:1;pointer-events:auto}
+#megaCanvas{position:absolute;inset:0;width:100%;height:100%}
+.mega-card{position:relative;z-index:2;text-align:center;max-width:min(520px,92vw);
+  padding:clamp(18px,3vw,30px) clamp(16px,3vw,28px);border-radius:28px;
+  background:linear-gradient(165deg,#FFFBEE,#FFE9D2);box-shadow:0 30px 70px rgba(0,0,0,.45),0 0 0 6px rgba(255,255,255,.22)}
+.mega-badge{font-size:clamp(38px,6.6vw,62px);line-height:1;animation:megaPop 1.2s ease-in-out infinite}
+@keyframes megaPop{0%,100%{transform:scale(1)}50%{transform:scale(1.12) rotate(-4deg)}}
+.mega-card h2{font-size:clamp(21px,3.2vw,32px);font-weight:900;letter-spacing:-.03em;margin-top:8px}
+.mega-sub{font-size:clamp(12px,1.3vw,15px);font-weight:750;color:var(--ink-soft);margin-top:6px}
+.mega-count{font-size:clamp(42px,8vw,78px);font-weight:900;line-height:1;margin:8px 0 2px;
+  background:linear-gradient(135deg,#FF8A7A,#FFC94D 55%,#6FD3B8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.mega-reward{display:inline-block;font-size:clamp(11px,1.15vw,14px);font-weight:850;color:#8A5A00;
+  background:#FFF0C9;padding:6px 12px;border-radius:999px;margin-top:4px}
+.mega-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+
+/* 10칸 보상 보드 */
+.rb-board{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;margin:8px 0 8px}
+.rb-cell{aspect-ratio:1/1;border-radius:8px;background:#F4F0FB;display:grid;place-items:center;
+  font-size:clamp(8px,.95vw,12px);box-shadow:inset 0 0 0 2px rgba(58,52,84,.06)}
+.rb-cell.on{background:linear-gradient(160deg,#FFF0B8,#FFC94D);box-shadow:0 2px 6px rgba(233,169,59,.4);animation:pop .35s}
+@media (max-width:560px){ .rb-board{grid-template-columns:repeat(5,1fr)} }
+
+/* 셀카 프레임 */
+.selfie-stage{display:flex;justify-content:center;margin-top:8px}
+.selfie-frame{position:relative;width:min(420px,84vw);aspect-ratio:1/1;border-radius:26px;overflow:hidden;
+  background:#2A2640;box-shadow:0 18px 40px rgba(58,52,84,.28);border:6px solid #fff}
+#selfieVideo{width:100%;height:100%;object-fit:cover;transform:scaleX(-1);display:block}
+.sf-badge{position:absolute;left:10px;top:10px;background:rgba(255,138,122,.95);color:#fff;font-weight:900;
+  font-size:clamp(10px,1.1vw,13px);padding:5px 11px;border-radius:999px;box-shadow:0 3px 10px rgba(0,0,0,.25)}
+.sf-crown{position:absolute;left:50%;top:-4px;transform:translateX(-50%);font-size:clamp(26px,4vw,38px);
+  filter:drop-shadow(0 4px 8px rgba(0,0,0,.3))}
+.sf-stars{position:absolute;right:10px;top:44px;font-size:clamp(13px,1.9vw,19px);letter-spacing:2px}
+.sf-date{position:absolute;right:10px;bottom:10px;background:rgba(58,52,84,.72);color:#fff;font-weight:850;
+  font-size:clamp(9px,1vw,12px);padding:4px 10px;border-radius:999px}
+.sf-hint{position:absolute;left:50%;bottom:54px;transform:translateX(-50%);background:rgba(255,255,255,.92);color:var(--ink);
+  font-weight:800;font-size:clamp(9px,.95vw,12px);padding:5px 11px;border-radius:999px;white-space:nowrap;max-width:82%;overflow:hidden;text-overflow:ellipsis}
+.selfie-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.btn.big{font-size:clamp(16px,1.9vw,22px);padding:14px 30px;border-radius:999px}
+.sticker-card .sc-art img{width:100%;height:100%;object-fit:cover;border-radius:18px;border:4px solid #fff}
+
+/* 포토 스티커판 */
+.photo-board{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:10px 0 4px}
+.ps-cell{position:relative;aspect-ratio:1/1;border-radius:16px;overflow:hidden;background:#F7F4FB;box-shadow:var(--shadow);
+  display:grid;place-items:center;padding:0;border:3px solid #fff}
+.ps-cell.empty{border:3px dashed rgba(58,52,84,.16);color:var(--ink-faint);font-size:clamp(16px,2vw,22px);font-weight:900;background:#FAF7FD}
+.ps-cell img{width:100%;height:100%;object-fit:cover}
+.ps-cell .ps-art{width:78%;height:78%;display:grid;place-items:center}
+.ps-cell .ps-art svg{width:100%;height:100%}
+.ps-badge{position:absolute;left:5px;top:5px;font-size:clamp(9px,1vw,12px);background:rgba(255,255,255,.92);border-radius:999px;padding:1px 5px;line-height:1.4}
+.ps-date{position:absolute;right:4px;bottom:4px;font-size:9px;font-weight:850;color:#fff;background:rgba(58,52,84,.68);padding:2px 5px;border-radius:999px}
+.photo-view{position:fixed;inset:0;z-index:96;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(24,20,40,.82);
+  opacity:0;pointer-events:none;transition:opacity .25s}
+.photo-view.open{opacity:1;pointer-events:auto}
+.pv-card{background:#fff;border-radius:24px;padding:12px;max-width:min(460px,92vw);text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.pv-card img{width:100%;border-radius:18px;display:block;background:#F4F0FB}
+.pv-card .pv-art{width:100%;aspect-ratio:1/1;display:grid;place-items:center;background:#F7F4FB;border-radius:18px}
+.pv-card .pv-art svg{width:70%;height:70%}
+.pv-cap{font-weight:850;font-size:clamp(12px,1.3vw,15px);margin:10px 0 4px;color:var(--ink)}
+.pv-card .btn{margin-top:8px}
+
 /* toast */
-#toast{position:fixed;left:50%;bottom:14px;transform:translate(-50%,20px);z-index:90;background:rgba(58,52,84,.92);color:#fff;
-  padding:8px 15px;border-radius:999px;font-size:clamp(10px,.95vw,12.5px);font-weight:750;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;max-width:min(560px,86vw);text-align:center;line-height:1.35}
+#toast{position:fixed;left:50%;bottom:14px;transform:translate(-50%,20px);z-index:90;background:rgba(58,52,84,.94);color:#fff;
+  padding:8px 10px 8px 16px;border-radius:22px;font-size:clamp(10px,.95vw,12.5px);font-weight:750;opacity:0;pointer-events:none;
+  transition:opacity .25s,transform .25s;max-width:min(620px,92vw);display:flex;align-items:center;gap:10px;line-height:1.35}
 #toast.show{opacity:1;transform:translate(-50%,0)}
+#toast .toast-msg{flex:1;min-width:0;text-align:left}
+#toast.plain{padding:8px 15px;border-radius:999px;text-align:center}
+#toast.plain .toast-msg{text-align:center}
+#toast .toast-act{pointer-events:auto;flex:none;background:var(--coral);color:#fff;border-radius:999px;padding:8px 12px;
+  font-weight:850;font-size:clamp(10px,.95vw,12.5px);white-space:nowrap;box-shadow:0 4px 12px rgba(239,106,90,.35)}
+#toast .toast-act:active{transform:scale(.95)}
 
 /* ---------- responsive ---------- */
 @media (max-width:900px){
@@ -329,7 +441,7 @@ h1,h2,h3,p{margin:0}
   .rep-row{grid-template-columns:22px 96px 1fr 50px}
 }
 @media (max-width:520px){
-  .hm{font-size:32px}
+  .hm{font-size:46px;font-weight:900}
   .brand-txt h1{font-size:16px}
   .brand-txt p{font-size:10px}
   .grid{gap:9px;padding:0 10px 14px}
@@ -343,7 +455,7 @@ h1,h2,h3,p{margin:0}
   .mascot{width:32px;height:32px}
   .brand-txt h1{font-size:14px}
   .brand-txt p{display:none}
-  .hm{font-size:24px}
+  .hm{font-size:30px;font-weight:900}
   .ss{font-size:11px}
   .depart-pill{font-size:9px;padding:2px 8px;gap:4px}
   .depart-pill svg{width:10px;height:10px}
@@ -358,6 +470,12 @@ h1,h2,h3,p{margin:0}
   .ko{font-size:11.5px}
   .en{display:none}
   .check{width:16px;height:16px}
+  .mode-tabs{padding:0 10px 4px;gap:6px}
+  .mode-tab{padding:4px 8px;border-radius:12px;border-width:2px}
+  .mode-tab .mt-emoji{font-size:15px}
+  .mode-tab .mt-label{font-size:11px}
+  .mode-tab .mt-sub{display:none}
+  .undo-btn{height:18px;font-size:8.5px;padding:0 5px;border-width:1.5px}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.001s!important;animation-iteration-count:1!important;transition-duration:.001s!important}
@@ -370,7 +488,7 @@ h1,h2,h3,p{margin:0}
   <div class="brand">
     <div class="mascot" id="mascot" aria-hidden="true"></div>
     <div class="brand-txt">
-      <h1><span id="childName">지우</span>의 아침 준비</h1>
+      <h1><span id="childName">지우</span>의 <span id="routineName">아침 준비</span></h1>
       <p id="todayLine">11월 19일 수요일 · 오늘도 반짝반짝</p>
     </div>
   </div>
@@ -407,6 +525,17 @@ h1,h2,h3,p{margin:0}
   </div>
 </header>
 
+<nav class="mode-tabs" id="modeTabs" role="tablist" aria-label="루틴 선택">
+  <button class="mode-tab sel" type="button" role="tab" data-mode="morning" aria-selected="true">
+    <span class="mt-emoji" aria-hidden="true">☀️</span>
+    <span class="mt-txt"><span class="mt-label">아침 등원</span><span class="mt-sub">출발 08:30 · 0/8</span></span>
+  </button>
+  <button class="mode-tab" type="button" role="tab" data-mode="evening" aria-selected="false">
+    <span class="mt-emoji" aria-hidden="true">🌙</span>
+    <span class="mt-txt"><span class="mt-label">하원 후 일과</span><span class="mt-sub">취침 21:30 · 0/8</span></span>
+  </button>
+</nav>
+
 <main class="grid" id="grid" aria-live="polite"></main>
 
 <!-- 소리 놀이터 -->
@@ -418,6 +547,7 @@ h1,h2,h3,p{margin:0}
       <button class="play-card hurry" data-test="hurry"><span class="emo">😱</span><b>재촉 알림 테스트</b><span>"아아아악 늦겠다!!" + 사이렌</span></button>
       <button class="play-card nice" data-test="nice"><span class="emo">👏</span><b>아주 나이스!</b><span>박수 + 빵빠레</span></button>
       <button class="play-card fanfare" data-test="fanfare"><span class="emo">🎺</span><b>대왕 팡파르</b><span>8단계 완료 축하</span></button>
+      <button class="play-card mega" data-test="mega"><span class="emo">🎆</span><b>10개 달성 30초 폭죽</b><span>폭죽 + 팡파르 메들리 30초</span></button>
     </div>
     <h3>목소리 고르기</h3>
     <div class="persona-row" id="personaRow"></div>
@@ -440,6 +570,8 @@ h1,h2,h3,p{margin:0}
       <div style="flex:1"></div>
       <div style="text-align:right"><small class="muted" style="font-weight:800">최근 7일</small><div style="font-weight:850"><span id="weekStickerCount">0</span>개 · <span id="streakTxt">연속 0일</span></div></div>
     </div>
+    <h3 style="margin-top:14px">📸 포토 스티커판 <span class="muted" style="font-weight:700">(<span id="photoGoal">10</span>칸)</span></h3>
+    <div class="photo-board" id="photoBoard"></div>
     <div class="sticker-grid" id="stickerGrid"></div>
     <div class="reward-box" id="rewardBox"></div>
     <h3>최근 7일 기록</h3>
@@ -451,7 +583,7 @@ h1,h2,h3,p{margin:0}
 <!-- 리포트 -->
 <div class="sheet-wrap" id="reportModal" role="dialog" aria-modal="true" aria-label="오늘의 리포트">
   <div class="sheet">
-    <div class="sheet-head"><h2>📊 오늘의 등원 리포트</h2><button class="close" data-close="reportModal" aria-label="닫기">✕</button></div>
+    <div class="sheet-head"><h2 id="reportTitle">📊 오늘의 등원 리포트</h2><button class="close" data-close="reportModal" aria-label="닫기">✕</button></div>
     <div class="rep-sum" id="repSum"></div>
     <div class="rep-rows" id="repRows"></div>
     <div class="insight" id="repInsight"></div>
@@ -491,7 +623,55 @@ h1,h2,h3,p{margin:0}
   </div>
 </div>
 
+<!-- 스티커 10개 달성 대왕 축하 -->
+<div class="mega" id="mega" role="dialog" aria-modal="true" aria-label="스티커 목표 달성 축하">
+  <canvas id="megaCanvas"></canvas>
+  <div class="mega-card">
+    <div class="mega-badge" aria-hidden="true">🎆</div>
+    <h2 id="megaTitle">스티커 10개 달성!</h2>
+    <p class="mega-sub" id="megaSub">지우가 스티커 10개를 모았어요!</p>
+    <div class="mega-count" id="megaCount">10</div>
+    <div><span class="mega-reward" id="megaReward">🎁 보상 · 목표 10개</span></div>
+    <div class="mega-actions">
+      <button class="btn" id="megaMute">🔇 소리 멈추기</button>
+      <button class="btn primary" id="megaClose">닫기</button>
+    </div>
+  </div>
+</div>
+
 <div id="toast" role="status"></div>
+
+<!-- 오늘의 완료 셀카 -->
+<div class="sheet-wrap" id="selfieModal" role="dialog" aria-modal="true" aria-label="오늘의 완료 셀카">
+  <div class="sheet">
+    <div class="sheet-head"><h2>📸 오늘의 완료 셀카!</h2><button class="close" id="selfieClose" aria-label="닫기">✕</button></div>
+    <div class="selfie-stage">
+      <div class="selfie-frame">
+        <video id="selfieVideo" autoplay playsinline muted></video>
+        <canvas id="selfieCanvas" width="480" height="480" style="display:none"></canvas>
+        <div class="sf-crown" aria-hidden="true">👑</div>
+        <div class="sf-badge" id="sfBadge">☀️ 아침 등원</div>
+        <div class="sf-stars" aria-hidden="true">✨⭐✨</div>
+        <div class="sf-date" id="sfDate">11월 19일</div>
+        <div class="sf-hint" id="selfieHint">카메라 준비 중…</div>
+      </div>
+    </div>
+    <div class="selfie-actions">
+      <button class="btn primary big" id="btnSnap" disabled>📸 찰칵!</button>
+      <button class="btn ghost" id="btnBasicSticker">✨ 기본 스티커로 붙이기</button>
+    </div>
+    <p class="note-line">사진은 이 기기(브라우저)에만 저장돼요. 찍기 싫으면 기본 스티커로 붙여도 괜찮아요!</p>
+  </div>
+</div>
+
+<!-- 포토 크게 보기 -->
+<div class="photo-view" id="photoView" role="dialog" aria-modal="true" aria-label="포토 스티커 크게 보기">
+  <div class="pv-card">
+    <div id="pvMedia"></div>
+    <div class="pv-cap" id="pvCap"></div>
+    <button class="btn primary" id="pvClose">닫기</button>
+  </div>
+</div>
 
 <script>
 /* =========================================================
@@ -608,6 +788,63 @@ const ARTS = {
     </g>
     <path d="M50 58 l3 8.4 8.4 3 -8.4 3 -3 8.4 -3 -8.4 -8.4 -3 8.4 -3z" fill="#FFC94D"/>
   </svg>`,
+  bag: `<svg viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="120" cy="162" rx="78" ry="10" fill="#3A3454" opacity=".08"/>
+    <path class="o" d="M90 58c0-22 12-32 30-32s30 10 30 32" fill="none"/>
+    <rect class="o" x="54" y="56" width="132" height="96" rx="26" fill="#7EC8F0"/>
+    <rect class="o" x="78" y="92" width="84" height="46" rx="16" fill="#BFE6FF"/>
+    <path d="M78 104h84" stroke="#3A3454" stroke-width="4"/>
+    <rect class="o" x="106" y="112" width="28" height="13" rx="6" fill="#FFC94D"/>
+    <path d="M54 84h132" stroke="#3A3454" stroke-width="5"/>
+    <path d="M196 44 l3 8.4 8.4 3 -8.4 3 -3 8.4 -3 -8.4 -8.4 -3 8.4 -3z" fill="#FFC94D"/>
+  </svg>`,
+  diary: `<svg viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="120" cy="162" rx="86" ry="10" fill="#3A3454" opacity=".08"/>
+    <rect class="o" x="46" y="28" width="118" height="120" rx="14" fill="#FFFFFF"/>
+    <rect class="o" x="46" y="28" width="18" height="120" rx="9" fill="#FF9A94"/>
+    <path d="M82 86c10-16 26-18 34-6 6 8 14 8 20-2" fill="none" stroke="#6FD3B8" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="132" cy="52" r="10" fill="#FFC94D" stroke="#3A3454" stroke-width="4"/>
+    <path d="M84 120h62" stroke="#DCE9F7" stroke-width="5" stroke-linecap="round"/>
+    <g transform="rotate(26 186 74)">
+      <rect class="o" x="174" y="22" width="17" height="66" rx="6" fill="#FFC94D"/>
+      <path d="M174 88l8.5 20 8.5-20z" fill="#3A3454"/>
+      <rect class="o" x="174" y="14" width="17" height="10" rx="4" fill="#FF9A94"/>
+    </g>
+  </svg>`,
+  books: `<svg viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="120" cy="160" rx="90" ry="10" fill="#3A3454" opacity=".08"/>
+    <rect class="o" x="42" y="112" width="156" height="26" rx="8" fill="#7EC8F0"/>
+    <path d="M56 112v26M184 112v26" stroke="#3A3454" stroke-width="4"/>
+    <rect class="o" x="54" y="84" width="132" height="24" rx="8" fill="#FF9A94"/>
+    <path d="M68 84v24M172 84v24" stroke="#3A3454" stroke-width="4"/>
+    <rect class="o" x="64" y="56" width="112" height="24" rx="8" fill="#FFC94D"/>
+    <path d="M78 56v24M162 56v24" stroke="#3A3454" stroke-width="4"/>
+    <path d="M120 28v14" stroke="#3A3454" stroke-width="5" stroke-linecap="round"/>
+    <path d="M104 22h32" stroke="#3A3454" stroke-width="5" stroke-linecap="round"/>
+    <path d="M202 40 l2.6 7.4 7.4 2.6 -7.4 2.6 -2.6 7.4 -2.6 -7.4 -7.4 -2.6 7.4 -2.6z" fill="#B9A6EE"/>
+  </svg>`,
+  bookhunt: `<svg viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="120" cy="160" rx="90" ry="10" fill="#3A3454" opacity=".08"/>
+    <path class="o" d="M32 118c26-12 58-12 84 0 26-12 58-12 84 0V56c-26-12-58-12-84 0-26-12-58-12-84 0z" fill="#FFFFFF"/>
+    <path d="M116 58v60" stroke="#3A3454" stroke-width="5"/>
+    <path d="M50 74c16-5 32-5 48 0M50 92c16-5 32-5 48 0" stroke="#DCE9F7" stroke-width="5" stroke-linecap="round"/>
+    <circle class="o" cx="150" cy="64" r="30" fill="#BFE6FF" opacity=".92"/>
+    <circle cx="150" cy="64" r="22" fill="none" stroke="#7EC8F0" stroke-width="4"/>
+    <path d="M170 84l22 22" stroke="#3A3454" stroke-width="11" stroke-linecap="round"/>
+    <path d="M200 34 l3 8 8 3 -8 3 -3 8 -3-8 -8-3 8-3z" fill="#FFC94D"/>
+  </svg>`,
+  homework: `<svg viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="120" cy="160" rx="86" ry="10" fill="#3A3454" opacity=".08"/>
+    <rect class="o" x="46" y="32" width="112" height="118" rx="14" fill="#FFFFFF"/>
+    <path d="M74 62h58M74 86h58M74 110h30" stroke="#DCE9F7" stroke-width="7" stroke-linecap="round"/>
+    <path d="M62 32v118" stroke="#3A3454" stroke-width="5"/>
+    <circle class="o" cx="140" cy="118" r="21" fill="#6FD3B8"/>
+    <path d="M131 118l7 7 12-14" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <g transform="rotate(24 196 68)">
+      <rect class="o" x="186" y="16" width="16" height="62" rx="6" fill="#FFC94D"/>
+      <path d="M186 78l8 18 8-18z" fill="#3A3454"/>
+    </g>
+  </svg>`,
   vitamin: `<svg viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg">
     <ellipse cx="120" cy="160" rx="78" ry="10" fill="#3A3454" opacity=".08"/>
     <rect class="o" x="122" y="76" width="76" height="68" rx="14" fill="#FFFFFF"/>
@@ -708,13 +945,29 @@ const DEFAULT_STEPS = [
   {id:"bed",     ko:"이불 정리",   en:"Make the bed",       art:"bed",     rec:180},
   {id:"toilet",  ko:"화장실",      en:"Bathroom",           art:"toilet",  rec:180},
   {id:"water",   ko:"물 한 잔",    en:"Drink water",        art:"water",   rec:90},
-  {id:"meal",    ko:"영상+아침밥", en:"Breakfast + video",  art:"meal",    rec:1800, timer:1800},
+  {id:"meal",    ko:"영상+아침밥", en:"Breakfast + video",  art:"meal",    rec:1800, timer:1800, autoTimer:true},
   {id:"brush",   ko:"양치",        en:"Brush teeth",        art:"brush",   rec:180,  timer:120},
   {id:"clothes", ko:"옷 입기",     en:"Get dressed",        art:"clothes", rec:300},
   {id:"hair",    ko:"머리 묶기",   en:"Hair",               art:"hair",    rec:300},
   {id:"vitamin", ko:"비타민 먹기", en:"Vitamin",            art:"vitamin", rec:120}
 ];
-const STEP_COLORS = {bed:"#7EC8F0",toilet:"#B9A6EE",water:"#7EC8F0",meal:"#FFC94D",brush:"#6FD3B8",clothes:"#FF9A94",hair:"#FFB3C7",vitamin:"#A9D96C",star:"#FFC94D"};
+const EVENING_STEPS = [
+  {id:"bag",      ko:"가방정리",          en:"Bag",                art:"bag",      rec:300},
+  {id:"clothes",  ko:"옷정리",            en:"Clothes",            art:"clothes",  rec:300},
+  {id:"video",    ko:"영상+간식 30분",     en:"Video + snack",      art:"meal",     rec:1800, timer:1800, autoTimer:true},
+  {id:"diary",    ko:"그림일기",          en:"Picture diary",      art:"diary",    rec:900},
+  {id:"books",    ko:"책 3권",             en:"Read 3 books",       art:"books",    rec:1200},
+  {id:"bookhunt", ko:"독서현장을 잡아라",  en:"Book hunt",          art:"bookhunt", rec:900},
+  {id:"homework", ko:"숙제 1개",           en:"One homework",       art:"homework", rec:900},
+  {id:"brush",    ko:"양치 또는 샤워",     en:"Brush or shower",    art:"brush",    rec:600,  timer:120}
+];
+const STEP_COLORS = {bed:"#7EC8F0",toilet:"#B9A6EE",water:"#7EC8F0",meal:"#FFC94D",brush:"#6FD3B8",clothes:"#FF9A94",hair:"#FFB3C7",vitamin:"#A9D96C",star:"#FFC94D",
+  bag:"#7EC8F0",diary:"#FF9A94",books:"#FFC94D",bookhunt:"#B9A6EE",homework:"#6FD3B8"};
+const MODES = {
+  morning:{key:"morning", label:"아침 등원", emoji:"☀️", title:"아침 준비", report:"아침 등원", word:"출발", finishTitle:"아침 준비 끝", target:"08:30", steps:DEFAULT_STEPS},
+  evening:{key:"evening", label:"하원 후 일과", emoji:"🌙", title:"하원 후 일과", report:"하원 후", word:"취침", finishTitle:"하원 후 일과 끝", target:"21:30", steps:EVENING_STEPS}
+};
+const MODE_KEYS = ["morning","evening"];
 const PERSONAS = {
   mom:{label:"다정한 엄마", rate:.96, pitch:1.12, lines:{
     nice:["아주 나이스~~~ 지우 최고야!","와, 나이스! 엄마가 박수 쳐줄게!","아주 나이스~ 하나 해냈어!"],
@@ -757,42 +1010,121 @@ const todayKey = (d=new Date()) => d.getFullYear()+"-"+String(d.getMonth()+1).pa
 
 function defaultConfig(){
   return {
-    name:"지우", depart:"08:30", lang:"ko", sound:true, voice:true, persona:"mom",
+    name:"지우", lang:"ko", sound:true, voice:true, persona:"mom",
     kiosk:true, alarmGap:180, notes:{},
-    reward:{count:5, name:"주말에 키즈카페 가기"}, rewardUsed:0,
-    steps: DEFAULT_STEPS.map(s=>({...s}))
+    reward:{count:10, name:"주말에 키즈카페 가기"}, rewardUsed:0,
+    modes: defaultModes()
   };
+}
+function defaultModes(){
+  const out={};
+  MODE_KEYS.forEach(k=>{
+    const m=MODES[k];
+    out[k]={key:k, label:m.label, emoji:m.emoji, title:m.title, target:m.target, steps:m.steps.map(s=>({...s}))};
+  });
+  return out;
 }
 function defaultDay(date){
   return {date, done:{}, log:[], startAt:null, finishedAt:null, rewarded:false, timers:{}, alerted:{}, departAlerted:{}};
 }
+function defaultDays(date){
+  return {morning:defaultDay(date), evening:defaultDay(date)};
+}
+function normalizeMode(src, def){
+  const s = src || {};
+  return {
+    key: def.key,
+    label: s.label || def.label,
+    emoji: s.emoji || def.emoji,
+    title: s.title || def.title,
+    target: s.target || s.depart || def.target,
+    steps: ((s.steps && s.steps.length) ? s.steps : def.steps).map(x=>{
+      const o = Object.assign({}, x);
+      if(o.id==="meal" || o.id==="video") o.autoTimer = true;
+      return o;
+    })
+  };
+}
+function normalizeDay(d, date){
+  const out = Object.assign(defaultDay(date), d||{});
+  out.date = date;
+  out.done = (d&&d.done)||{};
+  out.log = (d&&d.log)||[];
+  out.timers = (d&&d.timers)||{};
+  out.alerted = (d&&d.alerted)||{};
+  out.departAlerted = (d&&d.departAlerted)||{};
+  return out;
+}
+function stickerMode(s){ return (s && s.mode) || "morning"; }
+function pickAutoMode(){ const h = new Date().getHours(); return (h>=14 && h<24) ? "evening" : "morning"; }
+
 function loadState(){
   let raw=null;
   try{ raw = Store.read(); }catch(e){}
   let s=null;
   try{ s = raw ? JSON.parse(raw) : null; }catch(e){ s=null; }
-  const cfg = defaultConfig();
-  const st = {
-    v:1,
-    config: Object.assign(cfg, (s&&s.config)||{}),
-    day: Object.assign(defaultDay(todayKey()), (s&&s.day)||{}),
-    stickers: (s&&s.stickers)||[],
-    history: (s&&s.history)||{}
-  };
-  st.config.reward = Object.assign({count:5,name:"주말에 키즈카페 가기"}, st.config.reward||{});
-  st.config.notes = st.config.notes || {};
-  st.config.steps = (st.config.steps && st.config.steps.length ? st.config.steps : cfg.steps).map(x=>Object.assign({},x));
-  if(st.day.date !== todayKey()){
-    // 날짜가 바뀌었으면 오늘만 새로 시작 (스티커는 유지)
-    archiveDay(st);
-    st.day = defaultDay(todayKey());
+  const today = todayKey();
+  const st = { v:2, mode:"morning", modeManual:false, modeDate:null, config: defaultConfig(), days: defaultDays(today), stickers:[], history:{} };
+  if(s && typeof s==="object"){
+    const sc = s.config || {};
+    ["name","lang","sound","voice","persona","kiosk","alarmGap"].forEach(k=>{ if(sc[k]!==undefined) st.config[k]=sc[k]; });
+    st.config.notes = sc.notes || {};
+    st.config.reward = Object.assign({count:10,name:"주말에 키즈카페 가기"}, sc.reward||{});
+    // v1 기본값은 5개였음 → 새 기본 10칸으로 옮겨줌 (부모가 고친 적 없으면 5로 남아있음)
+    if(s.v!==2 && st.config.reward.count===5) st.config.reward.count=10;
+    st.config.rewardUsed = sc.rewardUsed||0;
+    // 루틴별 설정: v2는 modes, v1은 아침 루틴 하나였음
+    if(sc.modes && sc.modes.morning){
+      MODE_KEYS.forEach(k=>{ st.config.modes[k]=normalizeMode(sc.modes[k], MODES[k]); });
+    } else {
+      st.config.modes.morning = normalizeMode({target:sc.depart, steps:sc.steps}, MODES.morning);
+      st.config.modes.evening = normalizeMode(null, MODES.evening);
+    }
+    // 날짜별 진행: v2는 days, v1은 day 하나였음
+    if(s.days && typeof s.days==="object"){
+      MODE_KEYS.forEach(k=>{ st.days[k]=normalizeDay(s.days[k], (s.days[k]&&s.days[k].date)||today); });
+    } else if(s.day){
+      st.days.morning = normalizeDay(s.day, s.day.date || today);
+      st.days.evening = defaultDay(today);
+    }
+    st.stickers = Array.isArray(s.stickers) ? s.stickers.slice() : [];
+    st.history = (s.history && typeof s.history==="object") ? s.history : {};
+    // v1의 평평한 기록({done,total,...})은 아침 기록으로 옮김
+    Object.keys(st.history).forEach(k=>{
+      const h = st.history[k];
+      if(h && typeof h==="object" && h.morning===undefined && h.evening===undefined && typeof h.done==="number"){
+        st.history[k] = { morning: h };
+      }
+    });
+    if(MODES[s.mode]) st.mode = s.mode;
+    st.modeManual = !!s.modeManual;
+    st.modeDate = s.modeDate || null;
   }
-  st.day.timers = st.day.timers || {};
-  st.day.alerted = st.day.alerted || {};
-  st.day.departAlerted = st.day.departAlerted || {};
-  st.day.log = st.day.log || [];
-  st.day.done = st.day.done || {};
+  // 날짜가 바뀌었으면 그 루틴만 새로 시작 (스티커는 유지)
+  MODE_KEYS.forEach(k=>{
+    if(st.days[k].date !== today){ archiveDayOf(st, k); st.days[k] = defaultDay(today); }
+  });
+  if(st.modeDate !== today){ st.mode = pickAutoMode(); st.modeManual=false; st.modeDate=today; }
+  installModeAccessors(st);
   return st;
+}
+
+function installModeAccessors(st){
+  Object.defineProperty(st, "day", {
+    enumerable:false, configurable:true,
+    get(){ return st.days[st.mode]; },
+    set(v){ st.days[st.mode] = v; }
+  });
+  Object.defineProperty(st.config, "steps", {
+    enumerable:false, configurable:true,
+    get(){ return st.config.modes[st.mode].steps; },
+    set(v){ st.config.modes[st.mode].steps = v; }
+  });
+  Object.defineProperty(st.config, "depart", {
+    enumerable:false, configurable:true,
+    get(){ return st.config.modes[st.mode].target; },
+    set(v){ st.config.modes[st.mode].target = v; }
+  });
 }
 
 let state = loadState();
@@ -803,17 +1135,16 @@ function save(){
   }catch(e){ /* 저장 실패해도 앱은 계속 */ }
 }
 
-function archiveDay(st){
-  const d=st.day;
-  if(!d) return;
-  const done=Object.keys(d.done||{}).length;
+function archiveDayOf(st, mode){
+  const d = st.days && st.days[mode]; if(!d) return;
+  const steps = ((st.config.modes[mode]||{}).steps||[]).filter(x=>!x.hidden);
+  const done = steps.filter(x=>d.done && d.done[x.id]).length;
   if(!done) return;
   st.history = st.history||{};
-  st.history[d.date] = {
-    done, total: (st.config.steps||[]).filter(s=>!s.hidden).length,
-    startAt:d.startAt, finishedAt:d.finishedAt, rewarded:d.rewarded
-  };
+  const h = st.history[d.date] || (st.history[d.date]={});
+  h[mode] = {done, total:steps.length, startAt:d.startAt, finishedAt:d.finishedAt, rewarded:d.rewarded};
 }
+function archiveDay(st){ MODE_KEYS.forEach(m=>archiveDayOf(st, m)); }
 
 /* ---------------- 사운드 (WebAudio 합성) ---------------- */
 const Sfx = (()=>{
@@ -897,7 +1228,34 @@ const Sfx = (()=>{
       }
     },
     bibik(){ tone(980,.09,{type:"square",gain:.07}); tone(980,.09,{type:"square",gain:.07,at:.15}); },
-    sparkle(){ [1568,2093,2637].forEach((f,i)=>tone(f,.22,{type:"sine",gain:.06,at:i*.06})); }
+    sparkle(){ [1568,2093,2637].forEach((f,i)=>tone(f,.22,{type:"sine",gain:.06,at:i*.06})); },
+    megaStart(){
+      const c=ac(); if(!c) return null;
+      const mel=[[523,659,784,1046],[587,740,880,1175],[659,784,988,1318],[698,880,1046,1397],[784,988,1175,1568]];
+      let stopped=false, i=0;
+      const iv=setInterval(()=>{
+        if(stopped) return;
+        const seq=mel[i%mel.length]; i++;
+        seq.forEach((f,j)=>tone(f,.34,{type:"triangle",gain:.15,at:j*.16}));
+        tone(seq[0]/2,.5,{type:"sine",gain:.12,at:.02});
+        for(let k=0;k<6;k++) noise(.11,{gain:.10+Math.random()*.05, band:1400+Math.random()*2000, q:.9, at:.1+k*.13});
+        [1568,2093,2637].forEach((f,j)=>tone(f,.2,{type:"sine",gain:.055,at:.78+j*.07}));
+      }, 1500);
+      const endTimer=setTimeout(()=>{ clearInterval(iv); }, 30000);
+      return {
+        stop(){
+          if(stopped) return;
+          stopped=true; clearInterval(iv); clearTimeout(endTimer);
+          try{
+            const t=c.currentTime;
+            master.gain.cancelScheduledValues(t);
+            master.gain.setValueAtTime(master.gain.value, t);
+            master.gain.linearRampToValueAtTime(0.0001, t+.15);
+            setTimeout(()=>{ try{ master.gain.cancelScheduledValues(c.currentTime); master.gain.setValueAtTime(.5, c.currentTime); }catch(e){} }, 800);
+          }catch(e){}
+        }
+      };
+    }
   };
 })();
 
@@ -934,6 +1292,43 @@ const VoiceDB = (()=>{
     }
   };
 })();
+const PhotoDB = (()=>{
+  let dbp=null, mem=new Map();
+  const NAME="morning-photo-v1", STORE="photos";
+  function open(){
+    if(dbp) return dbp;
+    dbp = new Promise((res,rej)=>{
+      if(!window.indexedDB) return rej(new Error("no idb"));
+      const r = indexedDB.open(NAME,1);
+      r.onupgradeneeded = ()=>{ const db=r.result; if(!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE,{keyPath:"id"}); };
+      r.onsuccess = ()=>res(r.result);
+      r.onerror = ()=>rej(r.error);
+    });
+    return dbp;
+  }
+  return {
+    async put(rec){
+      mem.set(rec.id, rec);
+      try{
+        const db=await open();
+        await new Promise((res,rej)=>{ const tx=db.transaction(STORE,"readwrite"); tx.objectStore(STORE).put(rec); tx.oncomplete=res; tx.onerror=()=>rej(tx.error); });
+      }catch(e){}
+    },
+    async all(){
+      try{
+        const db=await open();
+        return await new Promise((res,rej)=>{ const tx=db.transaction(STORE,"readonly"); const rq=tx.objectStore(STORE).getAll(); rq.onsuccess=()=>res(rq.result||[]); rq.onerror=()=>rej(rq.error); });
+      }catch(e){ return Array.from(mem.values()); }
+    },
+    async get(id){
+      try{
+        const db=await open();
+        return await new Promise((res,rej)=>{ const tx=db.transaction(STORE,"readonly"); const rq=tx.objectStore(STORE).get(id); rq.onsuccess=()=>res(rq.result||null); rq.onerror=()=>rej(rq.error); });
+      }catch(e){ return mem.get(id)||null; }
+    }
+  };
+})();
+
 const voiceClips = {};   // slot -> {url, dur, blob}
 let audioEl = null;
 
@@ -977,6 +1372,18 @@ function tts(text){
 }
 
 /* ---------------- 상태 헬퍼 ---------------- */
+const MODE = () => MODES[state.mode] || MODES.morning;
+const targetWord = () => MODE().word || "출발";
+function setMode(m, opts){
+  if(!MODES[m]) return;
+  state.modeManual = true; state.modeDate = todayKey();
+  if(state.mode === m){ save(); return; }
+  state.mode = m;
+  resetUndoPending();
+  hideToast();
+  save(); renderAll(); tick();
+  if(!(opts && opts.silent)) showToast(MODE().emoji+" "+MODE().label+" 화면으로 바꿨어요");
+}
 const visibleSteps = () => state.config.steps.filter(s=>!s.hidden);
 const doneIds = () => Object.keys(state.day.done||{});
 const isDone = id => !!state.day.done[id];
@@ -1001,7 +1408,7 @@ function fmtCountdown(ms){
   if(h>0) txt = h+"시간 "+m+"분";
   else if(m>0) txt = m+"분 "+(s<10?"0"+s:s)+"초";
   else txt = s+"초";
-  return neg ? "출발 시간이 "+txt+" 지났어요" : "출발까지 "+txt;
+  return neg ? targetWord()+" 시간이 "+txt+" 지났어요" : targetWord()+"까지 "+txt;
 }
 function fmtCountdownShort(ms){
   const sec = Math.round(Math.abs(ms)/1000);
@@ -1032,6 +1439,7 @@ let cardEls = {};
 function renderHeader(){
   $("#childName").textContent = state.config.name || "지우";
   $$(".nm").forEach(n=>n.textContent = state.config.name || "지우");
+  const rn = $("#routineName"); if(rn) rn.textContent = MODE().title;
   const now = new Date();
   const note = (state.config.notes||{})[now.getDay()] || "";
   $("#todayLine").innerHTML = `${now.getMonth()+1}월 ${now.getDate()}일 ${WEEK[now.getDay()]}요일` + (note ? ` · <b>${escapeHtml(note)}</b>` : " · 오늘도 반짝반짝");
@@ -1048,7 +1456,27 @@ function renderHeader(){
   const st = state.stickers||[];
   $("#stickerCount").textContent = String(st.length);
   $("#boardTotal").textContent = String(st.length);
-  document.title = `${state.config.name||"지우"}의 아침 준비 · ${done}/${total}`;
+  document.title = `${state.config.name||"지우"}의 ${MODE().title} · ${done}/${total}`;
+  renderModeTabs();
+}
+
+function renderModeTabs(){
+  $$("#modeTabs .mode-tab").forEach(btn=>{
+    const k = btn.dataset.mode; const m = MODES[k]; if(!m) return;
+    const on = state.mode===k;
+    btn.classList.toggle("sel", on);
+    btn.setAttribute("aria-selected", on?"true":"false");
+    const em = $(".mt-emoji", btn); if(em) em.textContent = m.emoji;
+    const lb = $(".mt-label", btn); if(lb) lb.textContent = m.label;
+    const sub = $(".mt-sub", btn);
+    if(sub){
+      const mc = state.config.modes[k];
+      const steps = (mc.steps||[]).filter(x=>!x.hidden);
+      const d = state.days[k]||{};
+      const n = steps.filter(x=>d.done && d.done[x.id]).length;
+      sub.textContent = `${m.word==="출발"?"출발":"취침"} ${mc.target} · ${n}/${steps.length}`;
+    }
+  });
 }
 
 function cardHTML(step, idx){
@@ -1064,8 +1492,15 @@ function cardHTML(step, idx){
       <span class="num">${idx+1}</span>
       <span class="now-tag">지금!</span>
       ${step.timer ? `<button class="chip" type="button" data-chip="${step.id}" aria-label="타이머"><span class="chip-ico"></span><span class="chip-time">${fmtDur(step.timer)}</span></button>` : ""}
+      ${done ? `<button class="undo-btn" type="button" data-undo="${step.id}" aria-label="${escapeAttr(step.ko)} 단계 되돌리기">↩ 되돌리기</button>` : ""}
     </div>
     <div class="art">${art}</div>
+    ${step.autoTimer ? `<div class="vtimer" data-vtimer="${step.id}">
+      <div class="vt-lbl">남은 시간</div>
+      <div class="vt-time">${fmtDur(step.timer)}</div>
+      <div class="vt-bar"><i></i></div>
+      <button class="vt-done" type="button">✅ 다 했어요!</button>
+    </div>` : ""}
     <div class="card-foot">
       <div class="labels"><div class="ko">${escapeHtml(main)}</div><div class="en">${escapeHtml(sub)}</div></div>
       <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span>
@@ -1075,6 +1510,7 @@ function cardHTML(step, idx){
 
 function renderGrid(){
   const v = visibleSteps();
+  resetUndoPending();
   el.grid.innerHTML = v.map((s,i)=>cardHTML(s,i)).join("");
   cardEls = {};
   $$(".card", el.grid).forEach(card=>{
@@ -1084,6 +1520,10 @@ function renderGrid(){
       chip: $(".chip", card),
       chipIco: $(".chip-ico", card),
       chipTime: $(".chip-time", card),
+      vtimer: $(".vtimer", card),
+      vtTime: $(".vt-time", card),
+      vtLbl: $(".vt-lbl", card),
+      vtBar: $(".vtimer .vt-bar i", card),
       bar: null
     };
     // 타이머 진행 바
@@ -1093,7 +1533,7 @@ function renderGrid(){
       bar.className="timerbar"; card.appendChild(bar); cardEls[id].bar = bar;
     }
     card.addEventListener("click", ev=>{
-      if(ev.target.closest(".chip")) return;
+      if(ev.target.closest(".chip") || ev.target.closest(".undo-btn")) return;
       onCardTap(id);
     });
     card.addEventListener("keydown", ev=>{
@@ -1102,6 +1542,18 @@ function renderGrid(){
     const chip = cardEls[id].chip;
     if(chip){
       chip.addEventListener("click", ev=>{ ev.stopPropagation(); onChipTap(id); });
+    }
+    // 완료 카드의 눈에 보이는 되돌리기 버튼 (한 번 더 확인 후 취소)
+    const ub = $(".undo-btn", card);
+    cardEls[id].undoBtn = ub;
+    if(ub){
+      ub.addEventListener("pointerdown", ev=>{ ev.stopPropagation(); });
+      ub.addEventListener("click", ev=>{ ev.stopPropagation(); onUndoTap(id); });
+    }
+    const vd = $(".vt-done", card);
+    if(vd){
+      vd.addEventListener("pointerdown", ev=>{ ev.stopPropagation(); });
+      vd.addEventListener("click", ev=>{ ev.stopPropagation(); onCardTap(id, {complete:true}); });
     }
     // 완료 카드를 0.8초 꾹 누르면 되돌리기(부모용)
     let lp=null;
@@ -1124,7 +1576,9 @@ function timerState(stepId){
   return t;
 }
 function paintChip(id){
-  const refs = cardEls[id]; if(!refs || !refs.chip) return;
+  const refs = cardEls[id]; if(!refs) return;
+  paintBigTimer(id);
+  if(!refs.chip) return;
   const step = state.config.steps.find(s=>s.id===id); if(!step) return;
   const t = timerState(id);
   let rem = t.remain;
@@ -1151,6 +1605,36 @@ function paintChip(id){
   }
 }
 
+// 영상 단계 카드 안의 큰 잔여 시간 + 진행 바
+function paintBigTimer(id){
+  const refs = cardEls[id]; if(!refs || !refs.vtimer) return;
+  const step = state.config.steps.find(s=>s.id===id);
+  if(!step || !step.autoTimer) return;
+  const t = state.day.timers[id];
+  const started = !!t && (t.running || t.remain < step.timer || t.fired);
+  refs.card.classList.toggle("timing", !!started && !isDone(id));
+  if(!started || isDone(id)) return;
+  let rem = t.remain;
+  if(t.running && t.endsAt) rem = Math.max(0, Math.round((t.endsAt-Date.now())/1000));
+  const total = step.timer||1;
+  if(refs.vtTime) refs.vtTime.textContent = fmtDur(rem);
+  if(refs.vtLbl) refs.vtLbl.textContent = rem<=0 ? "시간 끝! 다 했으면 완료!" : (t.running ? "남은 시간" : "일시정지");
+  if(refs.vtBar) refs.vtBar.style.width = (clamp(1-rem/total,0,1)*100).toFixed(1)+"%";
+}
+function startStepTimer(id){
+  const step = state.config.steps.find(s=>s.id===id);
+  if(!step || !step.timer) return;
+  Sfx.unlock(); Sfx.tap();
+  let t = state.day.timers[id] || {remain:step.timer, running:false, endsAt:null, fired:false};
+  if(!state.day.startAt) state.day.startAt = Date.now();
+  if(t.remain<=0) t.remain = step.timer;
+  t.endsAt = Date.now() + t.remain*1000;
+  t.running = true; t.fired = false;
+  state.day.timers[id] = t;
+  save(); paintChip(id);
+  showToast("타이머 시작! 카드에서 남은 시간을 확인해요 ⏱");
+}
+
 /* ---------------- 동작 ---------------- */
 function onChipTap(id){
   const step = state.config.steps.find(s=>s.id===id); if(!step || !step.timer) return;
@@ -1170,10 +1654,17 @@ function onChipTap(id){
 }
 
 let lastAlarmPulse = 0;
-function onCardTap(id){
+function onCardTap(id, opts){
   Sfx.unlock();
+  resetUndoPending();
   if(isDone(id)){ Sfx.tap(); return; }
   const step = state.config.steps.find(s=>s.id===id); if(!step) return;
+  // 영상 단계: 아직 타이머가 안 켜졌으면 탭한 순간 30분 타이머 시작 (완료는 ✅ 다 했어요! 또는 다시 탭)
+  if(step.autoTimer && !(opts && opts.complete)){
+    const t = state.day.timers[id];
+    const rem = t ? (t.running && t.endsAt ? Math.max(0, Math.round((t.endsAt-Date.now())/1000)) : t.remain) : step.timer;
+    if(!(t && t.running) && rem > 0){ startStepTimer(id); return; }
+  }
   if(!state.day.startAt) state.day.startAt = Date.now();
   const now = Date.now();
   if(state.day.log.length === 0) state.day.startAt = now;   // 첫 카드를 누른 순간을 준비 시작으로
@@ -1200,6 +1691,9 @@ function onCardTap(id){
   renderAll();
   checkAlarms(true);
 
+  // 방금 누른 걸 바로 되돌릴 수 있게 토스트에 취소 버튼
+  showToast("‘"+step.ko+"’ 완료!", {actionLabel:"↩ 실수로 눌렀어요 (취소)", onAction:()=>undoStep(id), durationMs:4200});
+
   if(allDone()) finishRoutine();
 }
 
@@ -1207,7 +1701,9 @@ function writeHistory(){
   state.history = state.history || {};
   const v = visibleSteps();
   const done = v.filter(s=>isDone(s.id)).length;
-  state.history[state.day.date] = {
+  const k = state.day.date;
+  const h = (state.history[k] && typeof state.history[k]==="object") ? state.history[k] : (state.history[k]={});
+  h[state.mode] = {
     done, total:v.length, startAt:state.day.startAt,
     finishedAt:state.day.finishedAt, rewarded:state.day.rewarded
   };
@@ -1217,16 +1713,20 @@ function finishRoutine(){
   if(state.day.rewarded) return;
   state.day.rewarded = true;
   state.day.finishedAt = Date.now();
+  const beforeCount = (state.stickers||[]).length;
   const type = pickStickerType();
-  state.stickers.push({date:state.day.date, type, bonus:false, ts:Date.now()});
+  const sid = "ph"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+  state.stickers.push({id:sid, date:state.day.date, mode:state.mode, type, bonus:false, ts:Date.now()});
   let bonus = false;
   if(Date.now() <= departDate().getTime()){
     bonus = true;
-    state.stickers.push({date:state.day.date, type:"speed", bonus:true, ts:Date.now()});
+    state.stickers.push({date:state.day.date, mode:state.mode, type:"speed", bonus:true, ts:Date.now()});
   }
+  const afterCount = state.stickers.length;
+  const crossed = Math.floor(afterCount/10) > Math.floor(beforeCount/10);
   writeHistory(); save(); renderHeader();
   setTimeout(()=>{ Sfx.bigFanfare(); say(pickLine("finish"), "finish"); }, 260);
-  setTimeout(()=>showCelebration(type, bonus), 520);
+  setTimeout(()=>openSelfie(sid, {type, bonus, crossed, afterCount, mode:state.mode}), 620);
 }
 
 function pickStickerType(){
@@ -1244,20 +1744,48 @@ function resetToday(silent){
   if(!silent) showToast("오늘 진행 상황을 초기화했어요");
 }
 
-function undoStep(id){
+let undoPending = {id:null, timer:null};
+const UNDO_LABEL = "↩ 되돌리기";
+const UNDO_CONFIRM_LABEL = "한 번 더!";
+function resetUndoPending(){
+  if(undoPending.timer) clearTimeout(undoPending.timer);
+  if(undoPending.id){
+    const r = cardEls[undoPending.id];
+    if(r && r.undoBtn){ r.undoBtn.classList.remove("confirm"); r.undoBtn.textContent = UNDO_LABEL; }
+  }
+  undoPending = {id:null, timer:null};
+}
+function onUndoTap(id){
   if(!isDone(id)) return;
+  Sfx.unlock();
+  if(undoPending.id === id){ resetUndoPending(); undoStep(id); return; }
+  resetUndoPending();
+  const refs = cardEls[id]; const btn = refs && refs.undoBtn;
+  undoPending.id = id;
+  if(btn){ btn.classList.add("confirm"); btn.textContent = UNDO_CONFIRM_LABEL; }
+  Sfx.tap();
+  showToast("‘"+((state.config.steps.find(s=>s.id===id)||{}).ko||"이 단계")+"’ 되돌릴까요? 버튼을 한 번 더 누르면 취소돼요", {durationMs:3200});
+  undoPending.timer = setTimeout(()=>{ resetUndoPending(); }, 3600);
+}
+function undoStep(id, opts){
+  if(!isDone(id)) return;
+  const o = opts || {};
+  if(selfieCtx){ selfieCtx.settled = true; stopCamera(); closeModal("selfieModal"); selfieCtx = null; }
   delete state.day.done[id];
   state.day.log = state.day.log.filter(l=>l.id!==id);
   const step = state.config.steps.find(s=>s.id===id);
   if(step && step.timer) state.day.timers[id] = {remain:step.timer, running:false, endsAt:null, fired:false};
   if(state.day.rewarded){
     state.day.rewarded=false; state.day.finishedAt=null;
-    state.stickers = (state.stickers||[]).filter(s=>s.date!==state.day.date);
-    document.getElementById("celebrate").classList.remove("open");
+    // 오늘·이 루틴에서 받은 스티커만 거둬들여 다른 루틴 기록은 그대로 둠
+    state.stickers = (state.stickers||[]).filter(s=>!(s.date===state.day.date && stickerMode(s)===state.mode));
+    const cel=document.getElementById("celebrate"); if(cel) cel.classList.remove("open");
   }
   state.day.alerted = {};
-  save(); renderAll(); Sfx.tap();
-  showToast("이 단계를 되돌렸어요 (실수로 눌렀을 때)");
+  writeHistory();
+  save(); resetUndoPending(); renderAll(); Sfx.tap();
+  showToast(o.toast || "이 단계를 되돌렸어요");
+  checkAlarms(true);
 }
 
 /* ---------------- 알림 엔진 ---------------- */
@@ -1308,7 +1836,7 @@ function checkAlarms(isTap){
     }
   }
 
-  // 3) 출발 임박
+  // 3) 목표 시각 임박 (아침=출발, 하원 후=취침)
   const left = departDate().getTime() - now;
   const d15 = left <= 10*60*1000 && left > 5*60*1000 && !state.day.departAlerted.t10;
   const d5  = left <= 5*60*1000 && left > 0 && !state.day.departAlerted.t5;
@@ -1316,7 +1844,16 @@ function checkAlarms(isTap){
   if(d15 || d5 || d0){
     state.day.departAlerted[d15?"t10":d5?"t5":"t0"] = now;
     Sfx.siren();
-    setTimeout(()=>say(d15?"출발 10분 전이야. 빠뜨린 거 없나 확인해 보자!": d5?"출발 5분 전! 얼른 준비하자!":"출발 시간이야! 뛰어!", "depart"), 200);
+    const lines = state.mode==="evening" ? {
+      d15:"잠들기 10분 전이야. 이제 마무리하자!",
+      d5:"취침 5분 전! 얼른 잠옷 입고 자자!",
+      d0:"잘 시간이야! 잘 자, 좋은 꿈 꿔!"
+    } : {
+      d15:"출발 10분 전이야. 빠뜨린 거 없나 확인해 보자!",
+      d5:"출발 5분 전! 얼른 준비하자!",
+      d0:"출발 시간이야! 뛰어!"
+    };
+    setTimeout(()=>say(d15?lines.d15: d5?lines.d5:lines.d0, "depart"), 200);
     if(nowStep) markAlarm(nowStep.id);
   }
 }
@@ -1387,7 +1924,12 @@ function tick(){
   $("#clockSS").textContent = ss;
 
   // 날짜 변경
-  if(state.day.date !== todayKey()){ archiveDay(state); state.day = defaultDay(todayKey()); save(); renderAll(); }
+  if(state.days.morning.date !== todayKey() || state.days.evening.date !== todayKey()){
+    archiveDay(state);
+    state.days = defaultDays(todayKey());
+    save(); renderAll();
+  }
+  if(state.modeDate !== todayKey()){ state.mode = pickAutoMode(); state.modeManual=false; state.modeDate=todayKey(); save(); renderAll(); }
   maybeStartBySchedule();
 
   const left = departDate().getTime() - now.getTime();
@@ -1397,9 +1939,14 @@ function tick(){
   pill.classList.toggle("late", left<=0 && !farPast);
   pill.classList.toggle("off", farPast);
   const narrow = window.innerWidth < 560;
-  if(farPast) $("#departText").innerHTML = `<b>${state.config.depart}</b> 출발 · 오늘 등원 완료`;
+  const cd = fmtCountdown(left);
+  const prefix = targetWord()+"까지 ";
+  const tail = cd.indexOf(prefix)===0 ? cd.slice(prefix.length) : cd;
+  if(farPast) $("#departText").innerHTML = allDone()
+    ? `<b>${state.config.depart}</b> ${targetWord()} · 오늘 ${MODE().label} 완료`
+    : `<b>${state.config.depart}</b> ${targetWord()} · 시간이 지났어요`;
   else if(narrow) $("#departText").innerHTML = `<b>${state.config.depart}</b> · ${fmtCountdownShort(left)}`;
-  else $("#departText").innerHTML = `<b>${state.config.depart}</b> 출발 · ${fmtCountdown(left)}`;
+  else $("#departText").innerHTML = `<b>${state.config.depart}</b> ${targetWord()} · ${tail}`;
 
   // 타이머들
   visibleSteps().forEach(s=>{ if(s.timer) paintChip(s.id); });
@@ -1412,9 +1959,10 @@ function tick(){
       t.running=false; t.endsAt=null; t.remain=0; t.fired=true;
       save();
       Sfx.bell();
-      showBubbleById(s.id, s.id==="meal" ? "30분 끝! 밥 다 먹었으면 카드를 눌러줘!" : "시간 끝! 이제 카드를 눌러줘!", "");
+      const isLongMeal = (s.id==="meal" || s.id==="video");
+      showBubbleById(s.id, isLongMeal ? "30분 끝! 먹었으면 카드를 눌러줘!" : "시간 끝! 이제 카드를 눌러줘!", "");
       setTimeout(()=>{
-        if(s.id==="meal" && !isDone(s.id)){
+        if(isLongMeal && !isDone(s.id)){
           // 30분이 지나도 아침밥 단계가 안 끝났다면 재촉 모드로 전환
           markAlarm(s.id);
           showBubbleById(s.id, "아아아악 늦겠다!!! 서둘러라~~~~", "");
@@ -1463,7 +2011,7 @@ document.addEventListener("click", e=>{
   const wrap = e.target.closest(".sheet-wrap");
   if(wrap && e.target===wrap) closeModal(wrap.id);
 });
-document.addEventListener("keydown", e=>{ if(e.key==="Escape"){ closeAll(); $("#celebrate").classList.remove("open"); } });
+document.addEventListener("keydown", e=>{ if(e.key==="Escape"){ closeAll(); $("#celebrate").classList.remove("open"); closeMega(); const pv=$("#photoView"); if(pv) pv.classList.remove("open"); if(selfieCtx) settleSelfie(false); } });
 
 /* ---------------- 스티커판 ---------------- */
 function renderStickerBoard(){
@@ -1481,22 +2029,28 @@ function renderStickerBoard(){
     </div>`;
   }).join("");
 
-  // 보상
-  const rw = state.config.reward||{count:5,name:"주말에 키즈카페 가기"};
+  // 보상 (기본 목표 10칸)
+  const rw = state.config.reward||{count:10,name:"주말에 키즈카페 가기"};
+  const goal = Math.max(1, parseInt(rw.count||10,10));
   const usable = Math.max(0, st.length - (state.config.rewardUsed||0));
-  const pct = clamp(usable/(rw.count||5)*100,0,100);
-  const enough = usable >= (rw.count||5);
-  $("#rewardBox").innerHTML = `<div class="rb-head">🎁 ${escapeHtml(rw.name||"보상")}</div>
+  const pct = clamp(usable/goal*100,0,100);
+  const enough = usable >= goal;
+  const filled = clamp(usable, 0, goal);
+  const boardCells = Array.from({length:goal},(_,i)=>`<div class="rb-cell ${i<filled?"on":""}">${i<filled?"⭐":""}</div>`).join("");
+  const todayM = st.filter(s=>s.date===state.day.date && stickerMode(s)==="morning").length;
+  const todayE = st.filter(s=>s.date===state.day.date && stickerMode(s)==="evening").length;
+  $("#rewardBox").innerHTML = `<div class="rb-head">🎁 ${escapeHtml(rw.name||"보상")} · ${goal}칸 보드</div>
+    <div class="rb-board">${boardCells}</div>
     <div class="rb-bar"><div class="rb-fill" style="width:${enough?100:pct}%"></div></div>
     <div style="display:flex;align-items:center;gap:10px;font-weight:800;font-size:12px">
-      <span>${enough? "보상 받을 시간이에요! 🎉" : `스티커 ${Math.min(usable,rw.count||5)} / ${rw.count||5} · ${Math.max(0,(rw.count||5)-usable)}개 더 모으면 돼요`}</span>
+      <span>${enough? "보상 받을 시간이에요! 🎉" : `스티커 ${Math.min(usable,goal)} / ${goal} · ${Math.max(0,goal-usable)}개 더 모으면 돼요`}</span>
       <span style="flex:1"></span>
       ${enough?`<button class="btn sm" id="useReward">사용했어요</button>`:""}
     </div>
-    ${counts.speed?`<div class="note-line">⚡ 스피드 보너스 ${counts.speed}개 포함</div>`:""}`;
+    <div class="note-line">오늘 모은 스티커: ☀️ 아침 ${todayM}개 · 🌙 하원 후 ${todayE}개${counts.speed?` · ⚡ 스피드 보너스 ${counts.speed}개 포함`:``}</div>`;
   const useBtn = $("#useReward");
   if(useBtn) useBtn.addEventListener("click", ()=>{
-    state.config.rewardUsed = (state.config.rewardUsed||0) + (rw.count||5);
+    state.config.rewardUsed = (state.config.rewardUsed||0) + goal;
     save(); renderStickerBoard(); renderHeader(); Sfx.sparkle(); showToast("보상을 사용했어요! 다음 보상을 향해 다시 모아보자 🎉");
   });
 
@@ -1506,6 +2060,7 @@ function renderStickerBoard(){
   const cnt = weekStickerTotal();
   $("#weekStickerCount").textContent = cnt;
   $("#streakTxt").textContent = "연속 "+streakDays()+"일";
+  renderPhotoBoard();
 }
 function weekStickerTotal(){
   const now=new Date(); let n=0;
@@ -1520,17 +2075,36 @@ function streakDays(){
   }
   return n;
 }
+function dayProgress(k){
+  if(k===todayKey()){
+    let done=0,total=0;
+    MODE_KEYS.forEach(m=>{
+      const mc=state.config.modes[m], d=state.days[m]; if(!mc||!d) return;
+      const steps=(mc.steps||[]).filter(x=>!x.hidden);
+      done+=steps.filter(x=>d.done&&d.done[x.id]).length; total+=steps.length;
+    });
+    return {done,total};
+  }
+  const h=(state.history||{})[k];
+  let done=0,total=0;
+  if(h && typeof h==="object"){
+    if(h.morning || h.evening){
+      MODE_KEYS.forEach(m=>{ const r=h[m]; if(r){ done+=r.done||0; total+=r.total||0; } });
+    } else if(typeof h.done==="number"){ done=h.done; total=h.total||0; }
+  }
+  return {done,total};
+}
 function buildWeekStrip(){
   const now=new Date();
   const days=[];
   for(let i=6;i>=0;i--){ const d=new Date(now); d.setDate(d.getDate()-i); days.push(d); }
   return days.map(d=>{
     const k=todayKey(d);
-    const h=(state.history||{})[k]|| (k===state.day.date? {done:doneIds().length,total:visibleSteps().length}:null);
-    const done = h? h.done:0, total = h? h.total: visibleSteps().length||8;
-    const pct = total? Math.round(done/total*100):0;
+    const p=dayProgress(k);
+    const total=p.total||8;
+    const pct=total? Math.round(p.done/total*100):0;
     const hasSticker=(state.stickers||[]).some(s=>s.date===k);
-    return `<div class="wk ${done?"has":""}">
+    return `<div class="wk ${p.done?"has":""}">
       <div class="wk-bar"><i style="height:${Math.max(6,pct*0.52)}px"></i></div>
       <div class="wk-star">${hasSticker?"⭐":""}</div>
       <div class="wk-lbl">${WEEK[d.getDay()]}</div>
@@ -1540,6 +2114,7 @@ function buildWeekStrip(){
 
 /* ---------------- 리포트 ---------------- */
 function renderReport(){
+  const rt=$("#reportTitle"); if(rt) rt.textContent = "📊 오늘의 "+MODE().label+" 리포트";
   const v = visibleSteps();
   const done = v.filter(s=>isDone(s.id));
   const startAt = state.day.startAt;
@@ -1549,8 +2124,8 @@ function renderReport(){
 
   $("#repSum").innerHTML = `
     <div class="rep-cell"><small>총 준비 시간</small><b>${totalMin? Math.floor(totalMin)+"분 "+Math.round((totalMin%1)*60)+"초" : "-"}</b></div>
-    <div class="rep-cell"><small>출발까지 여유</small><b style="color:${left<0?"#C33C2B":"#1E8A6B"}">${startAt? fmtAhead(left) : "-"}</b></div>
-    <div class="rep-cell"><small>오늘 스티커</small><b>${(state.stickers||[]).filter(s=>s.date===state.day.date).length}개</b></div>`;
+    <div class="rep-cell"><small>${targetWord()}까지 여유</small><b style="color:${left<0?"#C33C2B":"#1E8A6B"}">${startAt? fmtAhead(left) : "-"}</b></div>
+    <div class="rep-cell"><small>오늘 스티커</small><b>${(state.stickers||[]).filter(s=>s.date===state.day.date && stickerMode(s)===state.mode).length}개</b></div>`;
 
   // 단계별 소요
   let prev = startAt;
@@ -1577,7 +2152,7 @@ function renderReport(){
   let insight = "";
   if(!done.length) insight = "오늘은 아직 시작 전이에요. 첫 카드를 누르면 준비 시간이 기록되기 시작해요.";
   else if(slow) insight = `오늘 가장 오래 걸린 단계는 <b>${slow.idx+1}. ${escapeHtml(slow.s.ko)}</b> (${Math.round(slow.dur/60)}분 ${Math.round(slow.dur%60)}초)예요. 이 단계만 조금 줄여도 아침이 훨씬 빨라져요.`;
-  if(state.day.finishedAt) insight += `<br>출발 목표 ${state.config.depart}까지 ${left>=0?"여유 있게":"조금 늦게"} 끝났어요.`;
+  if(state.day.finishedAt) insight += `<br>${targetWord()} 목표 ${state.config.depart}까지 ${left>=0?"여유 있게":"조금 늦게"} 끝났어요.`;
   $("#repInsight").innerHTML = insight;
 
   const strip = buildWeekStrip();
@@ -1603,9 +2178,12 @@ function renderParent(){
 function tabBasic(){
   const c=state.config;
   const note = c.notes[new Date().getDay()]||"";
+  const mt = MODE();
   return `
+  <div class="form-row"><label>편집할 루틴<span class="hint">위쪽 큰 탭과 같은 루틴을 고쳐요</span></label>
+    <div class="seg" data-routine>${MODE_KEYS.map(k=>`<button class="${state.mode===k?"sel":""}" data-val="${k}">${MODES[k].emoji} ${MODES[k].label}</button>`).join("")}</div></div>
   <div class="form-row"><label>아이 이름<span class="hint">화면 제목에 표시돼요</span></label><input class="inp txt" data-cfg="name" value="${escapeAttr(c.name)}" maxlength="12"></div>
-  <div class="form-row"><label>등원 출발 시각<span class="hint">이 시각까지 끝내면 스피드 보너스 스티커 +1</span></label><input class="inp time" type="time" data-cfg="depart" value="${c.depart}"></div>
+  <div class="form-row"><label>${mt.label} ${mt.word} 시각<span class="hint">${mt.word==="출발"?"이 시각까지 끝내면 스피드 보너스 스티커 +1":"이 시각 전에 끝내면 스피드 보너스 스티커 +1"}</span></label><input class="inp time" type="time" data-cfg="depart" value="${c.depart}"></div>
   <div class="form-row"><label>${WEEK[new Date().getDay()]}요일 준비물<span class="hint">예: 체육복, 물통, 도서관 책</span></label><input class="inp txt" data-note value="${escapeAttr(note)}" placeholder="오늘 챙길 것"></div>
   <div class="form-row"><label>언어<span class="hint">기본은 큰 한국어 + 작은 영어</span></label>
     <div class="seg" data-seg="lang"><button class="${c.lang==="ko"?"sel":""}" data-val="ko">한국어</button><button class="${c.lang==="en"?"sel":""}" data-val="en">English</button></div></div>
@@ -1619,12 +2197,12 @@ function tabBasic(){
     <button class="btn ghost" id="btnWakeNow">💡 화면 켜두기 테스트</button>
     <button class="btn ghost" id="btnDepartSoon">⏱ 지금부터 10분 뒤로</button>
   </div>
-  <p class="note-line">전체화면은 태블릿을 거치대에 세워두고 쓸 때 좋아요. 브라우저가 허용하면 화면이 자동으로 꺼지지 않게 잠금을 걸어요.</p>`;
+  <p class="note-line">전체화면은 태블릿을 거치대에 세워두고 쓸 때 좋아요. 브라우저가 허용하면 화면이 자동으로 꺼지지 않게 잠금을 걸어요. 아침·하원 후 루틴은 목표 시각과 단계를 따로 저장해요.</p>`;
 }
 function tabSteps(){
   const c=state.config;
   return `
-  <p class="muted" style="margin-bottom:10px">카드 순서·이름·타이머를 바꿀 수 있어요. 눈 아이콘을 끄면 오늘 화면에서 숨겨져요.</p>
+  <p class="muted" style="margin-bottom:10px"><b>${MODE().emoji} ${MODE().label}</b> 단계예요. 카드 순서·이름·타이머를 바꿀 수 있고, 눈 아이콘을 끄면 오늘 화면에서 숨겨져요.</p>
   <div id="stepEditList">
   ${c.steps.map((s,i)=>`
     <div class="step-edit ${s.hidden?"hidden":""}" data-sid="${s.id}">
@@ -1638,9 +2216,9 @@ function tabSteps(){
   </div>
   <div class="row-wrap" style="margin-top:10px">
     <button class="btn primary sm" id="btnAddStep">＋ 단계 추가</button>
-    <button class="btn ghost sm" id="btnResetSteps">기본 8단계로 되돌리기</button>
+    <button class="btn ghost sm" id="btnResetSteps">${MODE().label} 기본 8단계로 되돌리기</button>
   </div>
-  <p class="note-line">타이머가 있는 단계만 분 단위로 시간을 바꿀 수 있어요(현재: 영상+아침밥, 양치).</p>`;
+  <p class="note-line">타이머가 있는 단계만 분 단위로 시간을 바꿀 수 있어요(예: 영상+간식 30분, 양치 2분).</p>`;
 }
 function tabReward(){
   const c=state.config, rw=c.reward;
@@ -1720,6 +2298,11 @@ function bindParent(){
       state.config[seg.dataset.seg]=b.dataset.val; save(); renderAll();
     }));
   });
+  $$("[data-routine] button", body).forEach(b=>b.addEventListener("click", ()=>{
+    setMode(b.dataset.val, {silent:true});
+    renderParent(); tick();
+    showToast(MODE().emoji+" "+MODE().label+" 설정을 편집해요");
+  }));
   const kioskBtn=$("#btnKioskNow");
   if(kioskBtn) kioskBtn.addEventListener("click", goFullscreen);
   const wakeBtn=$("#btnWakeNow");
@@ -1767,8 +2350,8 @@ function bindParent(){
   });
   const rst=$("#btnResetSteps");
   if(rst) rst.addEventListener("click", ()=>{
-    if(!confirm("단계를 기본 8단계로 되돌릴까요? 오늘 완료 표시도 초기화돼요.")) return;
-    state.config.steps = DEFAULT_STEPS.map(s=>({...s}));
+    if(!confirm(MODE().label+" 단계를 기본 8단계로 되돌릴까요? 이 루틴의 오늘 완료 표시도 초기화돼요.")) return;
+    state.config.steps = MODES[state.mode].steps.map(s=>({...s}));
     state.day.done={}; state.day.log=[]; state.day.timers={}; state.day.rewarded=false;
     save(); renderAll(); renderParent();
   });
@@ -1877,6 +2460,9 @@ function testSound(kind){
     Sfx.bigFanfare(); confetti(2200);
     setTimeout(()=>say(pickLine("finish"),"finish"), 300);
   }
+  if(kind==="mega"){
+    openMega(10, {test:true});
+  }
 }
 
 /* ---------------- 축하 & 컨페티 ---------------- */
@@ -1917,17 +2503,26 @@ function confetti(ms=2600){
 }
 window.addEventListener("resize", ()=>{ const cv=$("#confetti"); if(cv && cv.width){/* 재생 중이면 다음 프레임에서 재조정 */} });
 
-function showCelebration(type, bonus){
+function showCelebration(type, bonus, sid){
   $("#celMasc").innerHTML = MASCOT;
   const name = state.config.name||"지우";
-  $("#celTitle").textContent = `${name}, 아침 준비 끝!`;
+  $("#celTitle").textContent = `${name}, ${MODE().finishTitle}!`;
   const done = visibleSteps().length;
   const t = state.day.finishedAt? fmtHM(state.day.finishedAt):"";
-  $("#celSub").innerHTML = `${done}단계 모두 완료${t?` · ${t} 완료`:""}${bonus?" · 제시간 출발!":""}`;
+  $("#celSub").innerHTML = `${done}단계 모두 완료${t?` · ${t} 완료`:``}${bonus?` · 제때 ${targetWord()}!`:``}`;
   const s = STICKERS[type]||STICKERS.star;
   const box = $("#stickerCard");
   box.innerHTML = `<div class="sc-art">${s.svg}</div><div class="sc-name">${s.ko}</div>`;
   box.style.animation="none"; void box.offsetWidth; box.style.animation="";
+  if(sid){
+    PhotoDB.get(sid).then(rec=>{
+      if(rec && rec.blob){
+        const url=URL.createObjectURL(rec.blob);
+        box.innerHTML = `<div class="sc-art"><img src="${url}" alt="오늘의 완료 셀카"></div><div class="sc-name">오늘의 완료 셀카 ⭐</div>`;
+        setTimeout(()=>{ try{ URL.revokeObjectURL(url); }catch(e){} }, 60000);
+      }
+    }).catch(()=>{});
+  }
   $("#celBonus").innerHTML = bonus? `<div class="bonus-chip">⚡ 스피드 보너스 스티커 +1 · ${escapeHtml(state.config.depart)} 전에 끝냈어요!</div>`:"";
   $("#celebrate").classList.add("open");
   confetti(3200);
@@ -1935,6 +2530,264 @@ function showCelebration(type, bonus){
 $("#celClose").addEventListener("click", ()=>{ $("#celebrate").classList.remove("open"); });
 $("#celBoard").addEventListener("click", ()=>{ $("#celebrate").classList.remove("open"); openStickers(); });
 $("#celebrate").addEventListener("click", e=>{ if(e.target.id==="celebrate") $("#celebrate").classList.remove("open"); });
+
+/* ---------------- 셀카 포토 스티커 ---------------- */
+let selfieCtx = null, selfieStream = null;
+async function openSelfie(sid, info){
+  const i = info||{};
+  selfieCtx = {sid, type:i.type, bonus:i.bonus, crossed:!!i.crossed, afterCount:i.afterCount||0, mode:i.mode||state.mode, settled:false};
+  const mt = MODES[selfieCtx.mode]||MODE();
+  $("#sfBadge").textContent = mt.emoji+" "+mt.label;
+  $("#sfDate").textContent = `${new Date().getMonth()+1}월 ${new Date().getDate()}일`;
+  $("#selfieHint").textContent = "카메라 준비 중…";
+  $("#btnSnap").disabled = true;
+  openModal("selfieModal");
+  await startCamera();
+}
+async function startCamera(){
+  const v=$("#selfieVideo");
+  try{
+    if(!v || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) throw new Error("no camera");
+    const stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:"user", width:{ideal:720}, height:{ideal:720}}, audio:false});
+    if(!selfieCtx){ stream.getTracks().forEach(t=>t.stop()); return; }
+    selfieStream = stream;
+    v.srcObject = stream;
+    try{ await v.play(); }catch(e){}
+    $("#selfieHint").textContent = "준비됐어! 📸 찰칵 눌러줘";
+    $("#btnSnap").disabled = false;
+  }catch(e){
+    $("#selfieHint").textContent = "카메라를 쓸 수 없어요. 기본 스티커로 붙여도 좋아!";
+    $("#btnSnap").disabled = true;
+  }
+}
+function stopCamera(){
+  try{ if(selfieStream) selfieStream.getTracks().forEach(t=>t.stop()); }catch(e){}
+  selfieStream=null;
+  const v=$("#selfieVideo"); if(v){ try{ v.pause(); }catch(e){} v.srcObject=null; }
+}
+function roundRectPath(ctx,x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y); ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h-r); ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  ctx.lineTo(x+r,y+h); ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+  ctx.lineTo(x,y+r); ctx.quadraticCurveTo(x,y,x+r,y); ctx.closePath();
+}
+function drawSelfieFrame(ctx,S){
+  const mt = MODES[(selfieCtx&&selfieCtx.mode)||state.mode]||MODE();
+  const g=ctx.createLinearGradient(0,0,S,S);
+  g.addColorStop(0,"#FFC94D"); g.addColorStop(.5,"#FF8A7A"); g.addColorStop(1,"#6FD3B8");
+  ctx.lineWidth=14; ctx.strokeStyle=g;
+  const r=54;
+  ctx.beginPath();
+  ctx.moveTo(r,7); ctx.lineTo(S-r,7); ctx.quadraticCurveTo(S-7,7,S-7,r);
+  ctx.lineTo(S-7,S-r); ctx.quadraticCurveTo(S-7,S-7,S-r,S-7);
+  ctx.lineTo(r,S-7); ctx.quadraticCurveTo(7,S-7,7,S-r);
+  ctx.lineTo(7,r); ctx.quadraticCurveTo(7,7,r,7); ctx.closePath(); ctx.stroke();
+  ctx.font="46px serif"; ctx.textAlign="center"; ctx.textBaseline="top";
+  ctx.fillText("👑", S/2, 12);
+  const label = mt.emoji+" "+mt.label;
+  ctx.font="bold 22px -apple-system,'Apple SD Gothic Neo',sans-serif";
+  ctx.textAlign="left"; ctx.textBaseline="middle";
+  const tw=ctx.measureText(label).width;
+  ctx.fillStyle="rgba(255,138,122,.95)";
+  roundRectPath(ctx, 20, 22, tw+28, 38, 19); ctx.fill();
+  ctx.fillStyle="#fff"; ctx.fillText(label, 34, 42);
+  const d=new Date();
+  const dateTxt = `${d.getMonth()+1}월 ${d.getDate()}일 ${fmtHM(d.getTime())}`;
+  ctx.font="bold 20px -apple-system,'Apple SD Gothic Neo',sans-serif";
+  ctx.textAlign="right"; ctx.textBaseline="middle";
+  const dw=ctx.measureText(dateTxt).width;
+  ctx.fillStyle="rgba(58,52,84,.72)";
+  roundRectPath(ctx, S-20-dw-24, S-64, dw+24, 36, 18); ctx.fill();
+  ctx.fillStyle="#fff"; ctx.fillText(dateTxt, S-32, S-46);
+  ctx.font="26px serif"; ctx.textAlign="left"; ctx.textBaseline="top";
+  ctx.fillStyle="#fff"; ctx.fillText("✨", S-66, 76);
+}
+function snapSelfie(){
+  const v=$("#selfieVideo"), cv=$("#selfieCanvas");
+  if(!v || !v.videoWidth){ showToast("카메라가 아직 준비 안 됐어요. 기본 스티커로 붙여도 돼요!"); return; }
+  const S=480; cv.width=S; cv.height=S;
+  const ctx=cv.getContext("2d");
+  ctx.clearRect(0,0,S,S);
+  const vw=v.videoWidth, vh=v.videoHeight, side=Math.min(vw,vh);
+  const sx=(vw-side)/2, sy=(vh-side)/2;
+  ctx.save(); ctx.translate(S,0); ctx.scale(-1,1);
+  ctx.drawImage(v, sx,sy,side,side, 0,0,S,S);
+  ctx.restore();
+  drawSelfieFrame(ctx,S);
+  const small=document.createElement("canvas"); small.width=240; small.height=240;
+  small.getContext("2d").drawImage(cv,0,0,240,240);
+  Sfx.sparkle();
+  try{
+    if(small.toBlob){
+      small.toBlob(b=>{ settleSelfie(!!b, b); }, "image/jpeg", .82);
+    } else {
+      const data = small.toDataURL("image/jpeg",.82);
+      const bin = atob(data.split(",")[1]); const arr=new Uint8Array(bin.length);
+      for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
+      settleSelfie(true, new Blob([arr],{type:"image/jpeg"}));
+    }
+  }catch(e){ settleSelfie(false); }
+}
+async function settleSelfie(withPhoto, blob){
+  const c = selfieCtx;
+  if(!c || c.settled) return;
+  c.settled = true;
+  if(withPhoto && blob){
+    try{ await PhotoDB.put({id:c.sid, blob, date:state.days[c.mode] ? state.days[c.mode].date : todayKey(), mode:c.mode, ts:Date.now()}); }catch(e){}
+  }
+  stopCamera();
+  closeModal("selfieModal");
+  selfieCtx = null;
+  const alive = (state.stickers||[]).some(s=>s.id===c.sid);
+  if(alive) setTimeout(()=>showCelebration(c.type, c.bonus, c.sid), 240);
+  if(c.crossed && alive) setTimeout(()=>openMega(c.afterCount, {mode:c.mode}), 1100);
+}
+
+/* ---------------- 10개 달성 대왕 축하 (폭죽 + 30초 음악) ---------------- */
+let megaRAF=null, megaSound=null, megaTimers=[];
+function fireworksRun(cv, ms){
+  if(!cv) return;
+  const ctx=cv.getContext("2d");
+  const dpr=Math.min(2,window.devicePixelRatio||1);
+  cv.width=Math.max(1,Math.round(cv.clientWidth*dpr));
+  cv.height=Math.max(1,Math.round(cv.clientHeight*dpr));
+  const W=()=>cv.width, H=()=>cv.height;
+  const colors=["#FF8A7A","#FFC94D","#6FD3B8","#B9A6EE","#7EC8F0","#FFB3C7","#FFFFFF"];
+  const parts=[];
+  const t0=performance.now();
+  let lastBurst=0;
+  cancelAnimationFrame(megaRAF);
+  function burst(){
+    const x=W()*(.12+Math.random()*.76), y=H()*(.1+Math.random()*.45);
+    const n=54+Math.floor(Math.random()*36);
+    const c1=colors[Math.floor(Math.random()*colors.length)];
+    const c2=colors[Math.floor(Math.random()*colors.length)];
+    for(let i=0;i<n;i++){
+      const a=Math.random()*Math.PI*2, sp=(1.1+Math.random()*4.4)*dpr;
+      parts.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,w:(2+Math.random()*3.4)*dpr,
+        c:Math.random()>.5?c1:c2,life:900+Math.random()*900,born:performance.now()});
+    }
+  }
+  function frame(t){
+    ctx.clearRect(0,0,cv.width,cv.height);
+    if(t-t0<ms && t-lastBurst>320){ lastBurst=t; burst(); if(Math.random()>.55) burst(); }
+    for(let i=parts.length-1;i>=0;i--){
+      const p=parts[i]; const age=t-p.born;
+      if(age>p.life || p.y>H()+40){ parts.splice(i,1); continue; }
+      p.x+=p.vx; p.y+=p.vy; p.vy+=.03*dpr; p.vx*=.992; p.vy*=.992;
+      const a=Math.max(0,1-age/p.life);
+      ctx.globalAlpha=a; ctx.fillStyle=p.c;
+      ctx.beginPath(); ctx.arc(p.x,p.y,Math.max(.4,p.w*a),0,Math.PI*2); ctx.fill();
+    }
+    ctx.globalAlpha=1;
+    if(t-t0<ms+1500) megaRAF=requestAnimationFrame(frame);
+    else ctx.clearRect(0,0,cv.width,cv.height);
+  }
+  megaRAF=requestAnimationFrame(frame);
+}
+function startMegaShow(){
+  const cv=$("#megaCanvas");
+  megaTimers.forEach(t=>clearTimeout(t)); megaTimers=[];
+  stopMegaSound();
+  Sfx.unlock();
+  if(cv) fireworksRun(cv, 30000);
+  megaSound = Sfx.megaStart();
+  megaTimers.push(setTimeout(()=>{ stopMegaSound(); }, 30000));
+}
+function stopMegaSound(){
+  if(megaSound){ try{ megaSound.stop(); }catch(e){} megaSound=null; }
+}
+function openMega(total, opts){
+  const o = opts||{};
+  const m=$("#mega"); if(!m) return;
+  Sfx.unlock();
+  const cel=$("#celebrate"); if(cel) cel.classList.remove("open");
+  $$(".sheet-wrap.open, #photoView.open").forEach(n=>n.classList.remove("open"));
+  const nm = state.config.name||"지우";
+  const rw = state.config.reward||{count:10,name:"주말에 키즈카페 가기"};
+  $("#megaTitle").textContent = o.test? "10개 달성 폭죽 맛보기!" : "스티커 "+total+"개 달성!";
+  $("#megaSub").textContent = o.test? "이렇게 30초 동안 폭죽과 축하 음악이 이어져요" : nm+"가 스티커 "+total+"개를 모았어요!";
+  $("#megaCount").textContent = String(total);
+  $("#megaReward").textContent = "🎁 "+(rw.name||"보상")+" · 목표 "+(rw.count||10)+"개";
+  const mb=$("#megaMute"); if(mb) mb.textContent="🔇 소리 멈추기";
+  m.classList.add("open");
+  document.body.style.overflow="hidden";
+  startMegaShow();
+}
+function closeMega(){
+  const m=$("#mega"); if(m) m.classList.remove("open");
+  document.body.style.overflow="";
+  stopMegaSound();
+  cancelAnimationFrame(megaRAF); megaRAF=null;
+  const cv=$("#megaCanvas");
+  if(cv){ const c=cv.getContext("2d"); c.clearRect(0,0,cv.width,cv.height); }
+  megaTimers.forEach(t=>clearTimeout(t)); megaTimers=[];
+}
+
+/* ---------------- 포토 스티커판 ---------------- */
+let photoURLs=[];
+function shortDate(k){ if(!k) return ""; const p=String(k).split("-"); return p.length===3? (parseInt(p[1],10)+"/"+parseInt(p[2],10)) : k; }
+function stickerArtFor(s){
+  const st = STICKERS[s.type] || STICKERS.star;
+  return st.svg;
+}
+async function renderPhotoBoard(){
+  const box=$("#photoBoard"); if(!box) return;
+  photoURLs.forEach(u=>{ try{ URL.revokeObjectURL(u); }catch(e){} }); photoURLs=[];
+  const goal = Math.max(1, parseInt((state.config.reward||{}).count||10,10));
+  const pg=$("#photoGoal"); if(pg) pg.textContent=String(goal);
+  const all = (state.stickers||[]).slice();
+  const used = Math.min(state.config.rewardUsed||0, all.length);
+  const cycle = all.slice(used);
+  const cells = cycle.slice(Math.max(0, cycle.length-goal));
+  let recs=[]; try{ recs = await PhotoDB.all(); }catch(e){}
+  const map={}; recs.forEach(r=>{ map[r.id]=r; });
+  const out=[];
+  for(let i=0;i<goal;i++){
+    const s = cells[i];
+    if(!s){ out.push(`<div class="ps-cell empty" aria-hidden="true">+</div>`); continue; }
+    let media="";
+    const rec = s.id ? map[s.id] : null;
+    if(rec && rec.blob){
+      const url=URL.createObjectURL(rec.blob); photoURLs.push(url);
+      media = `<img src="${url}" alt="포토 스티커">`;
+    } else {
+      media = `<span class="ps-art">${stickerArtFor(s)}</span>`;
+    }
+    out.push(`<button class="ps-cell" type="button" data-psid="${s.id||""}" aria-label="${escapeAttr(shortDate(s.date)+" "+(s.mode==="evening"?"하원 후":"아침")+" 포토 스티커")}">
+      <span class="ps-badge">${s.mode==="evening"?"🌙":"☀️"}</span>${media}
+      <span class="ps-date">${escapeHtml(shortDate(s.date))}</span>
+    </button>`);
+  }
+  box.innerHTML = out.join("");
+  $$("[data-psid]", box).forEach(b=>b.addEventListener("click", ()=>openPhotoView(b.dataset.psid)));
+}
+async function openPhotoView(id){
+  const s=(state.stickers||[]).find(x=>x.id===id);
+  if(!s) return;
+  const media=$("#pvMedia"), cap=$("#pvCap");
+  const when = (s.date? new Date(s.date+"T00:00:00").getMonth()+1+"월 "+new Date(s.date+"T00:00:00").getDate()+"일" : "") + (s.ts? " "+fmtHM(s.ts):"");
+  cap.textContent = (s.mode==="evening"?"🌙 하원 후 일과":"☀️ 아침 등원")+" · "+when;
+  const rec = id? await PhotoDB.get(id) : null;
+  if(rec && rec.blob){
+    const url=URL.createObjectURL(rec.blob);
+    media.innerHTML = `<img src="${url}" alt="포토 스티커">`;
+    setTimeout(()=>{ try{ URL.revokeObjectURL(url); }catch(e){} }, 60000);
+  } else {
+    media.innerHTML = `<div class="pv-art">${stickerArtFor(s)}</div>`;
+  }
+  $("#photoView").classList.add("open");
+}
+$("#btnSnap").addEventListener("click", snapSelfie);
+$("#btnBasicSticker").addEventListener("click", ()=>settleSelfie(false));
+$("#selfieClose").addEventListener("click", ()=>settleSelfie(false));
+$("#selfieModal").addEventListener("click", e=>{ if(e.target.id==="selfieModal") settleSelfie(false); });
+$("#megaClose").addEventListener("click", closeMega);
+$("#megaMute").addEventListener("click", ()=>{ stopMegaSound(); const b=$("#megaMute"); if(b) b.textContent="🔇 소리 꺼짐"; });
+$("#mega").addEventListener("click", e=>{ if(e.target.id==="mega") closeMega(); });
+$("#pvClose").addEventListener("click", ()=>{ $("#photoView").classList.remove("open"); });
+$("#photoView").addEventListener("click", e=>{ if(e.target.id==="photoView") $("#photoView").classList.remove("open"); });
 
 /* ---------------- 거치대 모드 ---------------- */
 let wakeLock=null;
@@ -1963,9 +2816,26 @@ function escapeHtml(s){ return String(s==null?"":s).replace(/[&<>"']/g, c=>({"&"
 function escapeAttr(s){ return escapeHtml(s); }
 
 let toastTimer=null;
-function showToast(msg){
-  const t=$("#toast"); t.textContent=msg; t.classList.add("show");
-  clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove("show"), 2600);
+function hideToast(){
+  const t=$("#toast"); if(!t) return;
+  t.classList.remove("show");
+  clearTimeout(toastTimer); toastTimer=null;
+}
+function showToast(msg, opts){
+  const t=$("#toast"); if(!t) return;
+  const o = opts || {};
+  clearTimeout(toastTimer);
+  t.textContent="";
+  const hasAction = !!(o.actionLabel && typeof o.onAction==="function");
+  t.classList.toggle("plain", !hasAction);
+  const span=document.createElement("span"); span.className="toast-msg"; span.textContent=msg; t.appendChild(span);
+  if(hasAction){
+    const b=document.createElement("button"); b.type="button"; b.className="toast-act"; b.textContent=o.actionLabel;
+    b.addEventListener("click", ev=>{ ev.stopPropagation(); b.disabled=true; hideToast(); o.onAction(); });
+    t.appendChild(b);
+  }
+  t.classList.add("show");
+  toastTimer=setTimeout(()=>{ t.classList.remove("show"); toastTimer=null; }, o.durationMs||2600);
 }
 
 /* ---------------- 초기화/이벤트 ---------------- */
@@ -2011,6 +2881,14 @@ function renderSlotList(){
 }
 function renderVoiceBadges(){ /* 상태 배지는 모달 렌더 시 반영 */ }
 
+// 루틴 탭 (☀️ 아침 / 🌙 하원 후)
+$$("#modeTabs .mode-tab").forEach(b=>b.addEventListener("click", ()=>{
+  Sfx.unlock();
+  const before = state.mode;
+  setMode(b.dataset.mode);
+  if(before !== state.mode) Sfx.tap();
+}));
+
 // 헤더 버튼
 $("#btnSticker").addEventListener("click", ()=>{ Sfx.unlock(); Sfx.tap(); openStickers(); });
 $("#btnPlay").addEventListener("click", ()=>{ Sfx.unlock(); Sfx.tap(); renderSlotList(); openModal("playModal"); });
@@ -2052,7 +2930,7 @@ document.addEventListener("keydown", e=>{
 function firstRunTip(){
   const k="morning-tip-"+todayKey();
   try{ if(localStorage.getItem(k)) return; localStorage.setItem(k,"1"); }catch(e){}
-  setTimeout(()=>showToast("카드를 톡! 누르면 완료 · 🎪 버튼에서 재촉·박수 소리 미리 듣기"), 900);}
+  setTimeout(()=>showToast("위 탭에서 ☀️ 아침 / 🌙 하원 후 루틴을 골라요 · 카드를 톡! 누르면 완료"), 900);}
 
 // 시작
 $("#mascot").innerHTML = MASCOT;
@@ -2068,8 +2946,12 @@ requestWakeLock();
 window.__morning = {
   get state(){ return state; },
   complete:onCardTap,
+  undo:undoStep,
+  setMode,
   reset:()=>resetToday(true),
   testSound,
+  openMega,
+  openSelfie,
   openParent, openStickers, openReport
 };
 })();
