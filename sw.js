@@ -3,7 +3,7 @@
      fetch 핸들러가 있는 서비스 워커가 필요합니다.
    - 문서(HTML)는 항상 네트워크 우선 → 새로고침하면 최신 버전이 바로 반영됩니다.
    - 네트워크가 끊기면 마지막으로 받은 화면을 보여 줍니다. */
-const CACHE = "jiwoo-routine-v1";
+const CACHE = "jiwoo-routine-v2";
 const ASSETS = ["/", "/index.html", "/manifest.webmanifest", "/icon-192.png", "/icon-512.png", "/favicon.ico"];
 
 self.addEventListener("install", (event) => {
