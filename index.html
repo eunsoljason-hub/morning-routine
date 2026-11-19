@@ -230,7 +230,7 @@ h1,h2,h3,p{margin:0}
 .sheet h3{font-size:clamp(13px,1.3vw,16px);font-weight:850;margin:18px 0 8px;letter-spacing:-.02em}
 
 /* play / sound lab */
-.play-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.play-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
 .play-card{background:#fff;border-radius:20px;padding:14px 10px;text-align:center;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:4px;align-items:center;
   transition:transform .15s,box-shadow .2s;border:2px solid transparent}
 .play-card:hover{transform:translateY(-2px)}
@@ -241,6 +241,7 @@ h1,h2,h3,p{margin:0}
 .play-card.hurry{border-color:#FFD9D3}
 .play-card.nice{border-color:#D8F1E7}
 .play-card.fanfare{border-color:#FFE9B8}
+.play-card.firework{border-color:#E3D9FF}
 .persona-row{display:flex;gap:8px;flex-wrap:wrap}
 .persona{padding:9px 14px;border-radius:999px;background:#fff;box-shadow:0 2px 8px rgba(58,52,84,.08);font-weight:800;font-size:clamp(11px,1.05vw,14px);border:2px solid transparent}
 .persona.sel{border-color:var(--coral);background:#FFF1EE;color:var(--coral-d)}
@@ -436,7 +437,7 @@ h1,h2,h3,p{margin:0}
   body{height:auto;min-height:100dvh;overflow-y:auto}
   .sheet-wrap{align-items:flex-end;padding:0}
   .sheet{border-radius:24px 24px 0 0;max-height:94dvh;width:100%}
-  .play-grid{grid-template-columns:1fr}
+  .play-grid{grid-template-columns:repeat(2,1fr)}
   .sticker-grid{grid-template-columns:repeat(3,1fr)}
   .rep-row{grid-template-columns:22px 96px 1fr 50px}
 }
@@ -547,7 +548,7 @@ h1,h2,h3,p{margin:0}
       <button class="play-card hurry" data-test="hurry"><span class="emo">😱</span><b>재촉 알림 테스트</b><span>"아아아악 늦겠다!!" + 사이렌</span></button>
       <button class="play-card nice" data-test="nice"><span class="emo">👏</span><b>아주 나이스!</b><span>박수 + 빵빠레</span></button>
       <button class="play-card fanfare" data-test="fanfare"><span class="emo">🎺</span><b>대왕 팡파르</b><span>8단계 완료 축하</span></button>
-      <button class="play-card mega" data-test="mega"><span class="emo">🎆</span><b>10개 달성 30초 폭죽</b><span>폭죽 + 팡파르 메들리 30초</span></button>
+      <button class="play-card firework" data-test="mega"><span class="emo">🎆</span><b>10개 달성 30초 폭죽</b><span>폭죽 + 팡파르 메들리 30초</span></button>
     </div>
     <h3>목소리 고르기</h3>
     <div class="persona-row" id="personaRow"></div>
