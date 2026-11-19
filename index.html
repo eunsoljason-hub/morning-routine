@@ -3277,7 +3277,7 @@ async function deleteSticker(id){
   save(); renderHeader(); renderStickerBoard(); Sfx.tap();
   const left = Math.min(modeUsable(m), goal);
   const u = { sticker:s, index:idx, usedFixed, photoId:(rec && rec.id)||null, timer:null, done:false };
-  u.timer = setTimeout(()=>{ if(stickerUndo===u) finalizeStickerDelete(); }, 7000);
+  u.timer = setTimeout(()=>{ if(stickerUndo===u) finalizeStickerDelete(); }, 7600);   // 토스트(7초)가 사라진 뒤에 셀카 기록을 정리
   stickerUndo = u;
   showToast("스티커 하나를 지웠어요 · "+(MODES[m]?MODES[m].label:m)+" "+left+"/"+goal, {
     actionLabel:"↩ 되돌리기",
