@@ -1,0 +1,42 @@
+{
+  "id": "/",
+  "name": "지우의 아침·하원 준비 대시보드",
+  "short_name": "지우 루틴",
+  "description": "지우의 아침 등원과 하원 후 루틴을 놀이처럼 따라 하는 태블릿 대시보드",
+  "lang": "ko",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "fullscreen",
+  "display_override": ["fullscreen", "standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#FFF9F2",
+  "theme_color": "#FF8B6A",
+  "categories": ["education", "productivity", "kids"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

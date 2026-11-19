@@ -3,9 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#FFF3E2">
-<meta name="apple-mobile-web-app-capable" content="yes">
 <title>지우의 아침 준비 · Morning Routine</title>
+<meta name="description" content="지우의 아침 등원과 하원 후 루틴을 놀이처럼 따라 하는 태블릿 대시보드">
+<meta name="theme-color" content="#FF8B6A">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="지우 루틴">
+<meta name="application-name" content="지우 루틴">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/icon-192.png">
 <style>
 :root{
   --ink:#3A3454;
@@ -91,6 +100,18 @@ h1,h2,h3,p{margin:0}
 .icon-btn.pressing{animation:pressRing .9s linear forwards}
 @keyframes pressRing{0%{box-shadow:0 0 0 0 rgba(255,138,122,.55)}100%{box-shadow:0 0 0 14px rgba(255,138,122,0)}}
 .icon-btn.on{background:#FFF0C9}
+.fs-btn{display:inline-flex;align-items:center;gap:6px;height:clamp(36px,3.9vw,46px);padding:0 clamp(9px,1vw,14px);border-radius:999px;
+  background:#fff;box-shadow:0 3px 10px rgba(58,52,84,.10);color:var(--ink-soft);font-size:clamp(10px,1vw,13px);font-weight:850;
+  white-space:nowrap;transition:transform .15s,box-shadow .2s,background .2s,color .2s}
+.fs-btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(58,52,84,.14)}
+.fs-btn:active{transform:scale(.96)}
+.fs-btn svg{width:16px;height:16px;flex:none;color:var(--coral-d)}
+.fs-btn.on{background:#FFF0C9;color:#9A6B00}
+.fs-btn.on svg{color:#B47800}
+.fs-btn .fs-out{display:none}
+.fs-btn.on .fs-in{display:none}
+.fs-btn.on .fs-out{display:block}
+.fs-btn[hidden]{display:none!important}
 
 /* ---------- routine tabs ---------- */
 .mode-tabs{flex:none;display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,1.1vw,14px);
@@ -431,6 +452,8 @@ h1,h2,h3,p{margin:0}
 /* ---------- responsive ---------- */
 @media (max-width:900px){
   .topbar{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"brand hud" "clock clock";row-gap:6px}
+  .fs-btn{width:clamp(36px,3.9vw,46px);padding:0;justify-content:center;border-radius:50%}
+  .fs-btn .fs-label{display:none}
   .brand{grid-area:brand}.hud{grid-area:hud}.clockbox{grid-area:clock;flex-direction:row;justify-content:center;align-items:baseline;gap:10px}
   .depart-pill{margin-left:4px}
   .grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none;grid-auto-rows:minmax(190px,1fr)}
@@ -462,6 +485,8 @@ h1,h2,h3,p{margin:0}
   .depart-pill svg{width:10px;height:10px}
   .ring-wrap{width:38px;height:38px}
   .icon-btn{width:32px;height:32px}
+  .fs-btn{width:32px;height:32px}
+  .fs-btn svg{width:15px;height:15px}
   .grid{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));grid-auto-rows:auto;gap:6px;padding:0 10px 6px}
   .card{padding:5px;border-radius:12px}
   .num{width:18px;height:18px;font-size:9px}
@@ -512,6 +537,10 @@ h1,h2,h3,p{margin:0}
       </svg>
       <div class="ring-txt"><b id="progressText">0/8</b><small>완료</small></div>
     </div>
+    <button class="fs-btn" id="btnFull" type="button" aria-label="⛶ 전체화면" title="⛶ 전체화면" aria-pressed="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="fs-in" d="M4 9V5.6A1.6 1.6 0 0 1 5.6 4H9M15 4h3.4A1.6 1.6 0 0 1 20 5.6V9M20 15v3.4a1.6 1.6 0 0 1-1.6 1.6H15M9 20H5.6A1.6 1.6 0 0 1 4 18.4V15"/><path class="fs-out" d="M9.5 4v4.5a1 1 0 0 1-1 1H4M20 9.5h-4.5a1 1 0 0 1-1-1V4M14.5 20v-4.5a1 1 0 0 1 1-1H20M4 14.5h4.5a1 1 0 0 1 1 1V20"/></svg>
+      <span class="fs-label">전체화면</span>
+    </button>
     <button class="icon-btn" id="btnSticker" aria-label="내 스티커판 열기">
       <svg viewBox="0 0 24 24" fill="#FFC94D" stroke="#E9A93B" stroke-width="1.4" stroke-linejoin="round"><path d="M12 2.6l2.9 6 6.6.8-4.8 4.6 1.2 6.6L12 17.4 6.1 20.6l1.2-6.6L2.5 9.4l6.6-.8z"/></svg>
       <span class="badge" id="stickerCount">0</span>
@@ -2198,7 +2227,7 @@ function tabBasic(){
     <button class="btn ghost" id="btnWakeNow">💡 화면 켜두기 테스트</button>
     <button class="btn ghost" id="btnDepartSoon">⏱ 지금부터 10분 뒤로</button>
   </div>
-  <p class="note-line">전체화면은 태블릿을 거치대에 세워두고 쓸 때 좋아요. 브라우저가 허용하면 화면이 자동으로 꺼지지 않게 잠금을 걸어요. 아침·하원 후 루틴은 목표 시각과 단계를 따로 저장해요.</p>`;
+  <p class="note-line">전체화면은 태블릿을 거치대에 세워두고 쓸 때 좋아요. 브라우저가 허용하면 화면이 자동으로 꺼지지 않게 잠금을 걸어요. 아침·하원 후 루틴은 목표 시각과 단계를 따로 저장해요.<br><b>안드로이드 태블릿(갤럭시 탭 등)</b>은 Chrome 오른쪽 위 ⋮ 메뉴에서 <b>‘앱 설치’ 또는 ‘홈 화면에 추가’</b>를 누르면 주소창 없는 전체화면 앱으로 열려요. 설치 후에는 홈 화면의 <b>지우 루틴</b> 아이콘으로 바로 시작할 수 있어요.</p>`;
 }
 function tabSteps(){
   const c=state.config;
@@ -2805,11 +2834,59 @@ async function requestWakeLock(notify){
 }
 function releaseWakeLock(){ try{ if(wakeLock) wakeLock.release(); }catch(e){} wakeLock=null; }
 document.addEventListener("visibilitychange", ()=>{ if(document.visibilityState==="visible" && state.config.kiosk) requestWakeLock(); });
+function fsElement(){ return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement || null; }
+function isInstalledApp(){
+  try{
+    if(window.navigator.standalone === true) return true;                            // iOS 홈 화면 앱
+    if(document.referrer && document.referrer.indexOf("android-app://") === 0) return true;  // Android WebAPK
+    return window.matchMedia("(display-mode: standalone)").matches;
+  }catch(e){ return false; }
+}
+function syncFullBtn(){
+  const b=$("#btnFull"); if(!b) return;
+  if(isInstalledApp()){ b.hidden=true; return; }   // 홈 화면 앱으로 열면 이미 주소창이 없어요
+  const elx=document.documentElement;
+  if(!(elx.requestFullscreen || elx.webkitRequestFullscreen || elx.msRequestFullscreen)){ b.hidden=true; return; }
+  b.hidden=false;
+  const on=!!fsElement();
+  const label = on ? "전체화면 해제" : "전체화면";
+  b.classList.toggle("on", on);
+  b.setAttribute("aria-pressed", on ? "true" : "false");
+  b.setAttribute("aria-label", on ? "✕ 전체화면 해제" : "⛶ 전체화면");
+  b.setAttribute("title", on ? "✕ 전체화면 해제" : "⛶ 전체화면");
+  const lab=b.querySelector(".fs-label"); if(lab) lab.textContent=label;
+}
+async function enterFullscreen(notify){
+  const elx=document.documentElement;
+  const req = elx.requestFullscreen || elx.webkitRequestFullscreen || elx.msRequestFullscreen;
+  if(!req) throw new Error("fullscreen-unsupported");
+  const r = req.call(elx);
+  if(r && typeof r.then === "function") await r;
+  if(notify){
+    const lockOk = await requestWakeLock();
+    showToast("⛶ 전체화면" + (lockOk ? " · 화면이 꺼지지 않게 잠금" : ""));
+  }
+  return true;
+}
+async function exitFullscreen(){
+  const exit = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+  if(!exit) return false;
+  const r = exit.call(document);
+  if(r && typeof r.then === "function") await r;
+  return true;
+}
+async function toggleFullscreen(){
+  try{
+    if(fsElement()){ await exitFullscreen(); showToast("✕ 전체화면 해제"); }
+    else { await enterFullscreen(true); }
+  }catch(e){ showToast("이 브라우저에서는 전체화면을 지원하지 않아요"); }
+  syncFullBtn();
+}
 async function goFullscreen(){
   try{
-    const elx=document.documentElement;
-    if(!document.fullscreenElement && elx.requestFullscreen) await elx.requestFullscreen();
+    if(!fsElement()) await enterFullscreen(true);
   }catch(e){ showToast("이 브라우저에서는 전체화면을 지원하지 않아요"); }
+  syncFullBtn();
 }
 
 /* ---------------- 유틸 ---------------- */
@@ -2942,6 +3019,18 @@ setInterval(tick, 500);
 loadClips().then(()=>{ renderSlotList(); if($("#parentModal").classList.contains("open")) renderParent(); });
 firstRunTip();
 requestWakeLock();
+
+/* ---------------- 전체화면 · PWA ---------------- */
+const fsBtnEl=$("#btnFull");
+if(fsBtnEl) fsBtnEl.addEventListener("click", toggleFullscreen);
+document.addEventListener("fullscreenchange", syncFullBtn);
+document.addEventListener("webkitfullscreenchange", syncFullBtn);
+syncFullBtn();
+if("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost" || location.hostname === "127.0.0.1")){
+  window.addEventListener("load", ()=>{
+    navigator.serviceWorker.register("/sw.js", {scope:"/"}).catch(()=>{});
+  });
+}
 
 // 시연 편의: 창에 상태 노출 (테스트용)
 window.__morning = {

@@ -4,3 +4,9 @@
 
 - Live: Vercel
 - Made with Pickle
+
+## 안드로이드 태블릿 전체화면(PWA)
+- `manifest.webmanifest` — `display: fullscreen`, 아이콘 192/512(any·maskable)
+- `sw.js` — 서비스 워커(설치 가능 조건 충족, 문서는 네트워크 우선)
+- Chrome ⋮ 메뉴 → **앱 설치 / 홈 화면에 추가** 후 홈 아이콘으로 실행하면 주소창 없는 전체화면
+- 일반 탭에서도 헤더 우측 **전체화면** 버튼으로 바로 전환 가능
